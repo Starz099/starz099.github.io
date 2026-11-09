@@ -1,0 +1,19 @@
+<input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
+
+<header class="mobile-topbar">
+  <div class="container mobile-topbar-inner">
+    <a class="brand-title" href="{{ "/" | relURL }}">{{ site.Title }}</a>
+    <label for="nav-toggle" class="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </label>
+  </div>
+</header>
+
+<label for="nav-toggle" class="drawer-backdrop" aria-hidden="true"></label>
+
+<div class="mobile-drawer">
+  <label for="nav-toggle" class="drawer-close" aria-label="Close menu">✕</label>
+  <div class="drawer-inner">
+    {{ partial "sidebar-content.html" . }}
+  </div>
+</div>

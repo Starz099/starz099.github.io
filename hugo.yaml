@@ -1,0 +1,52 @@
+baseURL: "https://starz099.github.io/"
+defaultContentLanguage: "en"
+title: "Mayank"
+enableRobotsTXT: true
+summaryLength: 30
+buildFuture: true
+
+taxonomies:
+  tag: tags
+
+params:
+  author: "Mayank"
+  handle: "@Starz099"
+  email: "contact@starzz.dev"
+  role: "Software Engineer"
+  bio: "I build desktop tools, systems utilities, and web apps."
+  themecolor: "#16a0d4"
+  resumeURL: ""
+  description: "Software engineer building desktop utilities, tools in Rust, and reliable web applications. Building fast, failing fast, learning faster."
+  social:
+    github: "https://github.com/Starz099"
+    x: "https://x.com/mayank0166"
+    linkedin: "https://www.linkedin.com/in/mayank016/"
+    codeforces: "https://codeforces.com/profile/Starz099"
+
+menus:
+  main:
+    - name: "Home"
+      identifier: "home"
+      url: "/"
+      weight: 10
+    - name: "Blog"
+      identifier: "blog"
+      url: "/blog/"
+      weight: 20
+    - name: "Projects"
+      identifier: "projects"
+      url: "/projects/"
+      weight: 30
+    - name: "Resume"
+      identifier: "resume"
+      url: "/resume/"
+      weight: 40
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    codeFences: true
+    noClasses: true
+    style: "github"

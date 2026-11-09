@@ -1,0 +1,11 @@
+{{ $accent := .accent | default "amber" }}
+<div class="page-header">
+  <div class="page-header-text">
+    <div class="page-header-title-wrap">
+      <h1 class="page-header-title">{{ .title }}</h1>
+      <span class="crayon-underline crayon-underline--{{ $accent }}" aria-hidden="true"></span>
+    </div>
+    {{ with .description }}<p class="page-header-desc">{{ . | safeHTML }}</p>{{ end }}
+  </div>
+  {{ with .action }}<div class="page-header-action">{{ . | safeHTML }}</div>{{ end }}
+</div>

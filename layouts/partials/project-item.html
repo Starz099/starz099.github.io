@@ -1,0 +1,30 @@
+{{ $primary := .demo }}
+{{ if not $primary }}{{ $primary = .github }}{{ end }}
+<div id="{{ .id }}" class="project">
+  <div class="project-head">
+    <a
+      class="project-title"
+      href="{{ $primary }}"
+      target="_blank"
+      rel="noopener noreferrer"
+      >{{ .title }}</a
+    >
+    <span class="project-year">({{ .year }})</span>
+    {{ with .github }}
+      <span class="dot">·</span
+      ><a class="project-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">code</a>
+    {{ end }}
+    {{ with .demo }}
+      <span class="dot">·</span
+      ><a class="project-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">demo</a>
+    {{ end }}
+    {{ with .blog }}
+      <span class="dot">·</span
+      ><a class="project-link" href="{{ . | relURL }}">writeup</a>
+    {{ end }}
+  </div>
+  <p class="project-desc">{{ .description }}</p>
+  <div class="chips">
+    {{ range first 5 .tech }}<span class="chip">{{ . }}</span>{{ end }}
+  </div>
+</div>

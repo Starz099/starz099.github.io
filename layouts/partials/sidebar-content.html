@@ -1,0 +1,30 @@
+<div class="side-group side-group--nav">
+  <nav class="side-nav" aria-label="Main navigation">
+    {{ $current := .RelPermalink }}
+    {{ range site.Menus.main }}
+      {{ $active := eq $current .URL }}
+      {{ if and (ne .URL "/") (hasPrefix $current .URL) }}{{ $active = true }}{{ end }}
+      <a class="side-link{{ if $active }} is-active{{ end }}" href="{{ .URL | relURL }}">
+        <span class="side-link-text">{{ .Name }}</span>
+      </a>
+    {{ end }}
+  </nav>
+</div>
+
+{{ $posts := (where site.RegularPages "Section" "blog").ByDate.Reverse }}
+<div class="side-group">
+  <span class="side-label">Recent Posts</span>
+  {{ range first 5 $posts }}
+    <a class="side-post" href="{{ .RelPermalink }}" title="{{ .Title }}">{{ .Title }}</a>
+  {{ end }}
+  <a class="side-more" href="{{ "/blog/" | relURL }}">All posts →</a>
+</div>
+
+<div class="side-group">
+  <span class="side-label">Elsewhere</span>
+  <a class="side-social" href="{{ site.Params.social.github }}" target="_blank" rel="noopener noreferrer">GitHub (@Starz099)</a>
+  <a class="side-social" href="{{ site.Params.social.x }}" target="_blank" rel="noopener noreferrer">X (@mayank0166)</a>
+  <a class="side-social" href="{{ site.Params.social.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+  <a class="side-social" href="{{ site.Params.social.codeforces }}" target="_blank" rel="noopener noreferrer">Codeforces</a>
+  <a class="side-social" href="{{ "index.xml" | relURL }}">RSS / Atom feed</a>
+</div>

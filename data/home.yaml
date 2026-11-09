@@ -1,0 +1,15 @@
+# Bio lines shown on the home page. `icon` maps to layouts/partials/icon.html,
+# `text` may contain inline HTML.
+lines:
+  - icon: pen
+    text: 'I <a class="link-crayon" href="/blog/">write a blog</a> — essays on compilers, networking, and architecture.'
+  - icon: code
+    text: 'I compete in programming contests on <a class="link-crayon" href="https://codeforces.com/profile/Starz099" target="_blank" rel="noopener noreferrer">Codeforces</a>.'
+  - icon: github
+    text: 'Spare-time and serious projects live <a class="link-crayon" href="/projects/">here</a> and <a class="link-crayon" href="https://github.com/Starz099" target="_blank" rel="noopener noreferrer">on GitHub</a>.'
+  - icon: x
+    text: 'Over on <a class="link-crayon" href="https://x.com/mayank0166" target="_blank" rel="noopener noreferrer">X</a> as @mayank0166.'
+  - icon: file
+    text: 'Here''s my <a class="link-crayon" href="/resume/">CV</a>.'
+  - icon: mail
+    text: 'Get in touch at <a class="link-crayon" href="mailto:contact@starzz.dev">contact@starzz.dev</a>.'

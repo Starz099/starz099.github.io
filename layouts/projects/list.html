@@ -1,0 +1,21 @@
+{{ define "main" }}
+  {{ partial "page-header.html" (dict "title" .Title "description" .Params.description) }}
+
+  <section class="proj-section">
+    <h2 class="proj-section-title">Systems &amp; Desktop Tools</h2>
+    <div class="project-list">
+      {{ range where hugo.Data.projects "group" "systems" }}
+        {{ partial "project-item.html" . }}
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="proj-section">
+    <h2 class="proj-section-title">Web Platforms &amp; Applications</h2>
+    <div class="project-list">
+      {{ range where hugo.Data.projects "group" "web" }}
+        {{ partial "project-item.html" . }}
+      {{ end }}
+    </div>
+  </section>
+{{ end }}

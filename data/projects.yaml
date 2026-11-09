@@ -1,0 +1,159 @@
+# Project catalogue. Order here is the display order (home shows the first five).
+# group: systems (Systems & Desktop Tools) | web (Web Platforms & Applications)
+- id: rush
+  title: Rush
+  year: "2025–2026"
+  group: systems
+  description: >-
+    The local-first video editor with an integrated AI agent. Transcribe media,
+    search visual frames, and control your timeline directly from chat prompts.
+  github: "https://github.com/Starz099/rush"
+  demo: "https://rush.starzz.dev/"
+  blog: ""
+  tech: ["Rust", "TypeScript", "Tauri", "FFmpeg", "React", "SQLite"]
+
+- id: oto
+  title: Oto
+  year: "2025"
+  group: systems
+  description: >-
+    A lightweight, keyboard-first desktop audio mixer overlay for Windows written
+    in Rust, featuring app-specific volume control and zero-latency global
+    push-to-talk, currently supporting Discord.
+  github: "https://github.com/Starz099/oto"
+  demo: "https://oto.starzz.dev/"
+  blog: ""
+  tech: ["Rust", "Egui", "Windows WASAPI", "Discord API"]
+
+- id: leerio
+  title: Leerio
+  year: "2024"
+  group: web
+  description: >-
+    AI-powered platform enabling conversational querying and summarisation of
+    multi-page PDF documents using a Retrieval-Augmented Generation (RAG)
+    pipeline.
+  github: "https://github.com/starz099/Leerio"
+  demo: "https://leerio.vercel.app/"
+  blog: ""
+  tech:
+    [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "LangChain",
+      "Grok API",
+      "MongoDB",
+      "Express.js",
+      "Pinecone",
+    ]
+
+- id: kestro
+  title: Kestro
+  year: "2024"
+  group: web
+  description: >-
+    Platform to practice typing speed for code, not just text. Helps developers
+    build muscle memory for syntax using a smooth editor powered by Monaco
+    Editor.
+  github: "https://github.com/Starz099/Kestro"
+  demo: "https://kestro.starzz.dev/"
+  blog: ""
+  tech:
+    [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Monaco Editor",
+      "CodeMirror",
+      "Zustand",
+      "PostgreSQL",
+      "Prisma",
+      "Clerk",
+    ]
+
+- id: hand-and-brain-chess
+  title: Hand and Brain Chess
+  year: "2024"
+  group: web
+  description: >-
+    An online platform for playing Hand and Brain Chess, allowing users to team
+    up and enjoy this unique chess variant with real-time gameplay.
+  github: "https://github.com/Starz099/chess"
+  demo: "https://chess-nu-seven.vercel.app/"
+  blog: ""
+  tech: ["React", "TypeScript", "Tailwind CSS", "Socket.io", "Node.js"]
+
+- id: tura
+  title: Tura
+  year: "2024"
+  group: systems
+  description: >-
+    A blazing-fast, file transfer CLI written in Rust. Using 4 parallel TCP
+    streams, async Tokio I/O, and ChaCha20-Poly1305 End-to-End Encryption.
+  github: "https://github.com/Starz099/tura"
+  demo: ""
+  blog: "/blog/making-tura/"
+  tech:
+    ["rust", "clap", "rumqttc", "tokio", "stun", "blake3", "chacha20poly1305"]
+
+- id: dark-pdf
+  title: Dark-pdf
+  year: "2024"
+  group: web
+  description: "Convert any pdf to dark mode with a single click."
+  github: "https://github.com/Starz099/dark-pdf"
+  demo: "https://dark-pdf.starzz.dev/"
+  blog: ""
+  tech: ["React", "TypeScript", "Tailwind CSS", "PDF.js"]
+
+- id: kyntra
+  title: Kyntra
+  year: "2024"
+  group: systems
+  description: >-
+    AI-powered CLI for smarter commits, better branch naming, and quick repo
+    understanding, all from the terminal.
+  github: "https://github.com/Starz099/kyntra"
+  demo: "https://kyntra.starzz.dev"
+  blog: ""
+  tech:
+    ["Node.js", "TypeScript", "Commander.js", "Inquirer", "Chalk", "simple-git"]
+
+- id: whiff.gg
+  title: Whiff.gg
+  year: "2024"
+  group: web
+  description: >-
+    A fun web app where users enter their Valorant ID, get their stats scraped
+    from Valorant Tracker, and receive an AI-generated roast based on their
+    performance.
+  github: "https://github.com/Starz099/whiff.gg"
+  demo: ""
+  blog: ""
+  tech:
+    ["Next.js", "TypeScript", "Tailwind CSS", "Puppeteer", "Azure AI Inference"]
+
+- id: writso
+  title: Writso
+  year: "2024"
+  group: web
+  description: >-
+    A writing practice web app that helps users improve their writing skills
+    through daily prompts, AI reviews, progress tracking, and community
+    feedback.
+  github: "https://github.com/Starz099/writso"
+  demo: "https://writso.vercel.app"
+  blog: ""
+  tech: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Prisma"]
+
+- id: token-launchpad
+  title: Token-Launchpad
+  year: "2024"
+  group: web
+  description: >-
+    A decentralized platform that enables users to create custom Solana tokens.
+  github: "https://github.com/starz099/token-launchpad"
+  demo: "https://token-launchpad-rho.vercel.app/"
+  blog: ""
+  tech: ["React", "JavaScript", "Solana web3.js", "Tailwind CSS"]

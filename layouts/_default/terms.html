@@ -1,0 +1,12 @@
+{{ define "main" }}
+  {{ partial "page-header.html" (dict "title" "Categories & Tags" "description" "Browse writing by subject area.") }}
+
+  <div class="tags-cloud">
+    {{ range $name, $taxonomy := .Data.Terms }}
+      <a class="tag-pill" href="{{ printf "/tags/%s/" ($name | urlize) | relURL }}">
+        <span class="tag-name">{{ $name }}</span>
+        <span class="tag-badge">{{ len $taxonomy }}</span>
+      </a>
+    {{ end }}
+  </div>
+{{ end }}

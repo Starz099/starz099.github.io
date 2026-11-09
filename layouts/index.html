@@ -1,0 +1,78 @@
+{{ define "main" }}
+  <section class="overview">
+    <table class="bio-table no-border">
+      <tbody>
+        <tr>
+          <td class="logocol">
+            <img
+              class="homelogo bio-avatar"
+              src="{{ "images/profile.png" | relURL }}"
+              alt="{{ site.Params.author }}"
+              width="60"
+              height="60"
+            />
+          </td>
+          <td class="bio-lead">
+            Hi! I am <b class="text-primary">{{ site.Params.author }}</b> <span class="handle">({{ site.Params.handle }})</span>. {{ site.Params.bio }}
+          </td>
+        </tr>
+        {{ range hugo.Data.home.lines }}
+          <tr>
+            <td class="logocol">
+              <span class="homelogo-ico">{{ partial "icon.html" .icon }}</span>
+            </td>
+            <td>
+              {{ .text | safeHTML }}
+            </td>
+          </tr>
+        {{ end }}
+      </tbody>
+    </table>
+    {{ .Content }}
+  </section>
+
+  {{ $posts := (where site.RegularPages "Section" "blog").ByDate.Reverse }}
+  <section id="projects" class="home-section">
+    <div class="section-head">
+      <h2 class="section-title">Projects</h2>
+      <a class="section-more" href="{{ "/projects/" | relURL }}">view all ({{ len hugo.Data.projects }}) →</a>
+    </div>
+    <p class="section-intro">
+      Selected software, desktop utilities, and open source projects I&apos;ve
+      built. More experiments on
+      <a class="link-crayon" href="{{ site.Params.social.github }}" target="_blank" rel="noopener noreferrer">GitHub</a>.
+    </p>
+    <div class="project-list">
+      {{ range first 5 hugo.Data.projects }}
+        {{ partial "project-item.html" . }}
+      {{ end }}
+    </div>
+  </section>
+
+  <section id="writing" class="home-section">
+    <div class="section-head">
+      <h2 class="section-title">Recent Writing</h2>
+      <a class="section-more" href="{{ "/blog/" | relURL }}">view all ({{ len $posts }}) →</a>
+    </div>
+    <ul class="writing-list">
+      {{ range first 3 $posts }}
+        <li class="writing-item">
+          <time class="writing-date" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+          <div class="writing-body">
+            <a class="writing-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            <p class="writing-desc">{{ .Params.description }}</p>
+          </div>
+        </li>
+      {{ end }}
+    </ul>
+  </section>
+
+  <section id="activity" class="home-section">
+    <div class="section-head">
+      <h2 class="section-title">GitHub Activity</h2>
+    </div>
+    <a class="gh-chart" href="{{ site.Params.social.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub contribution graph">
+      <img src="https://ghchart.rshah.org/Starz099" alt="GitHub contribution chart for Starz099" loading="lazy" />
+    </a>
+  </section>
+{{ end }}

@@ -1,0 +1,29 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-bar">
+      <div class="footer-left">
+        <span>&copy; {{ site.Params.author }} {{ now.Year }}</span>
+      </div>
+      <div class="sns-links" aria-label="Social and external links">
+        <a href="{{ site.Params.social.github }}" target="_blank" rel="noopener noreferrer" title="GitHub (@Starz099)" aria-label="GitHub">
+          {{ partial "icon.html" "github" }}
+        </a>
+        <a href="{{ site.Params.social.x }}" target="_blank" rel="noopener noreferrer" title="X (@mayank0166)" aria-label="X">
+          {{ partial "icon.html" "x" }}
+        </a>
+        <a href="{{ site.Params.social.linkedin }}" target="_blank" rel="noopener noreferrer" title="LinkedIn" aria-label="LinkedIn">
+          {{ partial "icon.html" "linkedin" }}
+        </a>
+        <a href="{{ site.Params.social.codeforces }}" target="_blank" rel="noopener noreferrer" title="Codeforces (Starz099)" aria-label="Codeforces">
+          {{ partial "icon.html" "codeforces" }}
+        </a>
+        <a href="mailto:{{ site.Params.email }}" title="Email ({{ site.Params.email }})" aria-label="Email">
+          {{ partial "icon.html" "mail" }}
+        </a>
+        <a href="{{ "index.xml" | relURL }}" title="RSS / Atom feed" aria-label="RSS Feed">
+          {{ partial "icon.html" "rss" }}
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
