@@ -1,0 +1,207 @@
+<dialog id="project-modal" class="project-modal" aria-labelledby="dialog-title">
+  <div class="dialog-box">
+    <div class="dialog-header">
+      <div class="dialog-title-wrap">
+        <h3 id="dialog-title" class="dialog-title"></h3>
+        <span id="dialog-year" class="dialog-year"></span>
+      </div>
+      <button type="button" id="dialog-close-btn" class="dialog-close-btn" aria-label="Close dialog">✕</button>
+    </div>
+
+    <div id="dialog-media" class="dialog-media"></div>
+
+    <div class="dialog-body">
+      <div id="dialog-tags" class="dialog-tags"></div>
+      <p id="dialog-desc" class="dialog-desc"></p>
+      <div id="dialog-actions" class="dialog-actions"></div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  (function () {
+    var modal = document.getElementById('project-modal');
+    if (!modal) return;
+
+    var closeBtn = document.getElementById('dialog-close-btn');
+    var mediaContainer = document.getElementById('dialog-media');
+    var titleEl = document.getElementById('dialog-title');
+    var yearEl = document.getElementById('dialog-year');
+    var tagsEl = document.getElementById('dialog-tags');
+    var descEl = document.getElementById('dialog-desc');
+    var actionsEl = document.getElementById('dialog-actions');
+    var activeHls = null;
+
+    function cleanupMedia() {
+      if (activeHls) {
+        try {
+          activeHls.destroy();
+        } catch (e) {}
+        activeHls = null;
+      }
+      var video = mediaContainer.querySelector('video');
+      if (video) {
+        try {
+          video.pause();
+          video.src = '';
+        } catch (e) {}
+      }
+      mediaContainer.innerHTML = '';
+    }
+
+    function closeModal() {
+      cleanupMedia();
+      try {
+        modal.close();
+      } catch (e) {
+        modal.removeAttribute('open');
+      }
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeModal);
+    }
+
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    modal.addEventListener('close', function () {
+      cleanupMedia();
+    });
+
+    function ensureHls(callback) {
+      if (window.Hls) {
+        callback();
+      } else {
+        var script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/hls.js@1.5.8/dist/hls.min.js';
+        script.onload = callback;
+        document.head.appendChild(script);
+      }
+    }
+
+    function openModal(data) {
+      cleanupMedia();
+
+      titleEl.textContent = data.title || '';
+      yearEl.textContent = data.year || '';
+      descEl.textContent = data.desc || '';
+
+      // Tags
+      tagsEl.innerHTML = '';
+      if (data.tech) {
+        var tags = data.tech.split(',');
+        tags.forEach(function (t) {
+          var tag = t.trim();
+          if (tag) {
+            var span = document.createElement('span');
+            span.className = 'tech-pill';
+            span.textContent = tag;
+            tagsEl.appendChild(span);
+          }
+        });
+      }
+
+      // Action links
+      actionsEl.innerHTML = '';
+      if (data.github) {
+        var codeLink = document.createElement('a');
+        codeLink.className = 'btn-action';
+        codeLink.href = data.github;
+        codeLink.target = '_blank';
+        codeLink.rel = 'noopener noreferrer';
+        codeLink.innerHTML = '<span>GitHub ↗</span>';
+        actionsEl.appendChild(codeLink);
+      }
+      if (data.demo) {
+        var demoLink = document.createElement('a');
+        demoLink.className = 'btn-action';
+        demoLink.href = data.demo;
+        demoLink.target = '_blank';
+        demoLink.rel = 'noopener noreferrer';
+        demoLink.innerHTML = '<span>Live Demo ↗</span>';
+        actionsEl.appendChild(demoLink);
+      }
+      if (data.blog) {
+        var blogLink = document.createElement('a');
+        blogLink.className = 'btn-action';
+        blogLink.href = data.blog;
+        blogLink.innerHTML = '<span>Read Writeup →</span>';
+        actionsEl.appendChild(blogLink);
+      }
+
+      // Media: Video or Screenshot
+      if (data.playback) {
+        var video = document.createElement('video');
+        video.controls = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        video.className = 'dialog-video';
+        video.poster = 'https://image.mux.com/' + data.playback + '/thumbnail.webp';
+        mediaContainer.appendChild(video);
+
+        var streamUrl = 'https://stream.mux.com/' + data.playback + '.m3u8';
+        if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          video.src = streamUrl;
+        } else {
+          ensureHls(function () {
+            if (window.Hls && Hls.isSupported()) {
+              activeHls = new Hls({ enableWorker: false });
+              activeHls.loadSource(streamUrl);
+              activeHls.attachMedia(video);
+            }
+          });
+        }
+      } else if (data.image) {
+        var img = document.createElement('img');
+        img.src = data.image;
+        img.alt = data.title;
+        img.className = 'dialog-screenshot';
+        mediaContainer.appendChild(img);
+      }
+
+      try {
+        modal.showModal();
+      } catch (e) {
+        modal.setAttribute('open', '');
+      }
+    }
+
+    document.addEventListener('click', function (e) {
+      var trigger = e.target.closest('.btn-preview-trigger');
+      if (!trigger) return;
+      e.preventDefault();
+
+      var data = {
+        id: trigger.getAttribute('data-id'),
+        title: trigger.getAttribute('data-title'),
+        year: trigger.getAttribute('data-year'),
+        desc: trigger.getAttribute('data-desc'),
+        tech: trigger.getAttribute('data-tech'),
+        github: trigger.getAttribute('data-github'),
+        demo: trigger.getAttribute('data-demo'),
+        blog: trigger.getAttribute('data-blog'),
+        image: trigger.getAttribute('data-image'),
+        playback: trigger.getAttribute('data-playback')
+      };
+      openModal(data);
+    });
+
+    // Support query parameter ?preview=<id> for direct modal linking
+    try {
+      var urlParams = new URLSearchParams(window.location.search);
+      var autoPreview = urlParams.get('preview');
+      if (autoPreview) {
+        var autoTrigger = document.querySelector('.btn-preview-trigger[data-id="' + autoPreview + '"]');
+        if (autoTrigger) {
+          setTimeout(function () {
+            autoTrigger.click();
+          }, 200);
+        }
+      }
+    } catch (e) {}
+  })();
+</script>

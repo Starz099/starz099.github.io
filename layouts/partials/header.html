@@ -1,19 +1,20 @@
-<input type="checkbox" id="nav-toggle" class="nav-toggle" hidden />
-
-<header class="mobile-topbar">
-  <div class="container mobile-topbar-inner">
-    <a class="brand-title" href="{{ "/" | relURL }}">{{ site.Title }}</a>
-    <label for="nav-toggle" class="hamburger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </label>
+<header class="site-header">
+  <div class="header-band">
+    <div class="container header-inner">
+      <nav class="site-nav" aria-label="Main navigation">
+        {{- $currentPage := . -}}
+        {{- range site.Menus.main -}}
+          {{- $isActive := false -}}
+          {{- if eq .URL "/" -}}
+            {{- $isActive = $currentPage.IsHome -}}
+          {{- else -}}
+            {{- $isActive = in $currentPage.RelPermalink .URL -}}
+          {{- end -}}
+          <a class="nav-item{{ if $isActive }} is-active{{ end }}" href="{{ .URL | relURL }}">
+            <span class="nav-label">{{ .Name }}</span>
+          </a>
+        {{- end -}}
+      </nav>
+    </div>
   </div>
 </header>
-
-<label for="nav-toggle" class="drawer-backdrop" aria-hidden="true"></label>
-
-<div class="mobile-drawer">
-  <label for="nav-toggle" class="drawer-close" aria-label="Close menu">✕</label>
-  <div class="drawer-inner">
-    {{ partial "sidebar-content.html" . }}
-  </div>
-</div>

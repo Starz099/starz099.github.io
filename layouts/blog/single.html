@@ -1,24 +1,50 @@
 {{ define "main" }}
-  <article class="post">
-    <header class="post-header">
-      <a class="post-back" href="{{ "/blog/" | relURL }}">← All posts</a>
-      <h1 class="post-title">{{ .Title }}</h1>
-      <div class="post-meta">
-        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
-        {{ with .ReadingTime }}<span class="dot">·</span><span>{{ . }} min read</span>{{ end }}
-        {{ with .Params.tags }}
-          <span class="dot">·</span>
-          <span class="post-tags">
-            {{ range . }}
-              <a class="post-tag" href="{{ printf "/tags/%s/" (. | urlize) | relURL }}">{{ . }}</a>
-            {{ end }}
-          </span>
-        {{ end }}
+<article class="standalone-post">
+  <nav class="vscode-breadcrumb" aria-label="Breadcrumb">
+    <div class="breadcrumb-inner">
+      <div class="breadcrumb-trail">
+        <a href="{{ "/blog/" | relURL }}" class="breadcrumb-node breadcrumb-root">
+          <svg class="breadcrumb-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          <span class="breadcrumb-text">Blog</span>
+        </a>
+        <span class="breadcrumb-sep">›</span>
+        <span class="breadcrumb-node breadcrumb-current">{{ .Title }}</span>
       </div>
-      {{ with .Params.description }}<p class="post-desc">{{ . }}</p>{{ end }}
-    </header>
-    <div class="prose">
-      {{ .Content }}
+      <div class="breadcrumb-meta">
+        <a href="{{ printf "/blog/#%s" .File.TranslationBaseName | relURL }}" class="breadcrumb-link-btn">← Continuous Timeline</a>
+      </div>
     </div>
-  </article>
+  </nav>
+
+  <header class="timeline-header">
+    <div class="timeline-meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+      <span class="dot">·</span>
+      <span>{{ .ReadingTime }} min read</span>
+      {{ with .Params.tags }}
+        <span class="dot">·</span>
+        <span class="timeline-tags">
+          {{ range . }}<span class="tech-pill">{{ . }}</span>{{ end }}
+        </span>
+      {{ end }}
+    </div>
+    <h1 class="timeline-title">{{ .Title }}</h1>
+    {{ with .Params.description }}
+      <p class="timeline-lead">{{ . }}</p>
+    {{ end }}
+  </header>
+
+  <div class="timeline-body prose">
+    {{ .Content }}
+  </div>
+
+  <footer class="timeline-footer">
+    <div class="timeline-footer-actions">
+      <a href="{{ "/blog/" | relURL }}" class="btn-action">← All essays on timeline</a>
+    </div>
+  </footer>
+</article>
 {{ end }}

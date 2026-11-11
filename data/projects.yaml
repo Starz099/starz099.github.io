@@ -1,4 +1,4 @@
-# Project catalogue. Order here is the display order (home shows the first five).
+# Project catalogue. Order here is the display order (home shows the first four).
 # group: systems (Systems & Desktop Tools) | web (Web Platforms & Applications)
 - id: rush
   title: Rush
@@ -10,6 +10,8 @@
   github: "https://github.com/Starz099/rush"
   demo: "https://rush.starzz.dev/"
   blog: ""
+  image: "/images/projects/rush.png"
+  playbackId: ""
   tech: ["Rust", "TypeScript", "Tauri", "FFmpeg", "React", "SQLite"]
 
 - id: oto
@@ -23,7 +25,23 @@
   github: "https://github.com/Starz099/oto"
   demo: "https://oto.starzz.dev/"
   blog: ""
+  image: "/images/projects/oto.png"
+  playbackId: "YCO2xZqsqBxhWL3XBl6kSf016GeKdzxM01AAtRnX1kK2Y"
   tech: ["Rust", "Egui", "Windows WASAPI", "Discord API"]
+
+- id: tura
+  title: Tura
+  year: "2024"
+  group: systems
+  description: >-
+    A blazing-fast, file transfer CLI written in Rust. Using 4 parallel TCP
+    streams, async Tokio I/O, and ChaCha20-Poly1305 End-to-End Encryption.
+  github: "https://github.com/Starz099/tura"
+  demo: ""
+  blog: "/blog/#making-tura"
+  image: "/images/projects/tura.png"
+  playbackId: "vE7iWeax4JgFQgPdplvkowJlUNRaFhTKzl1pK3r1isg"
+  tech: ["Rust", "Clap", "Tokio", "STUN", "Blake3", "ChaCha20Poly1305", "MQTT"]
 
 - id: leerio
   title: Leerio
@@ -35,7 +53,9 @@
     pipeline.
   github: "https://github.com/starz099/Leerio"
   demo: "https://leerio.vercel.app/"
-  blog: ""
+  blog: "/blog/#rag-0-to-1"
+  image: "/images/projects/leerio.png"
+  playbackId: "tI00LODq9Z0101RrRV2dc02shvfP88GOFVVor5mdS015iYXg"
   tech:
     [
       "Next.js",
@@ -44,7 +64,6 @@
       "LangChain",
       "Grok API",
       "MongoDB",
-      "Express.js",
       "Pinecone",
     ]
 
@@ -59,6 +78,8 @@
   github: "https://github.com/Starz099/Kestro"
   demo: "https://kestro.starzz.dev/"
   blog: ""
+  image: "/images/projects/kestro.png"
+  playbackId: "i2nM3Y3NWY5Vie019QBXALFF4zLAAEG300rXNr01PFwKy4"
   tech:
     [
       "Next.js",
@@ -69,7 +90,6 @@
       "Zustand",
       "PostgreSQL",
       "Prisma",
-      "Clerk",
     ]
 
 - id: hand-and-brain-chess
@@ -82,29 +102,20 @@
   github: "https://github.com/Starz099/chess"
   demo: "https://chess-nu-seven.vercel.app/"
   blog: ""
+  image: "/images/projects/hand-and-brain-chess.png"
+  playbackId: "gXx01r01ivGwsLlqxl2sO8tUopVMtbPcCCtnsJQGau2JQ"
   tech: ["React", "TypeScript", "Tailwind CSS", "Socket.io", "Node.js"]
-
-- id: tura
-  title: Tura
-  year: "2024"
-  group: systems
-  description: >-
-    A blazing-fast, file transfer CLI written in Rust. Using 4 parallel TCP
-    streams, async Tokio I/O, and ChaCha20-Poly1305 End-to-End Encryption.
-  github: "https://github.com/Starz099/tura"
-  demo: ""
-  blog: "/blog/making-tura/"
-  tech:
-    ["rust", "clap", "rumqttc", "tokio", "stun", "blake3", "chacha20poly1305"]
 
 - id: dark-pdf
   title: Dark-pdf
   year: "2024"
   group: web
-  description: "Convert any pdf to dark mode with a single click."
+  description: "Convert any PDF document to dark mode with a single click in your browser."
   github: "https://github.com/Starz099/dark-pdf"
   demo: "https://dark-pdf.starzz.dev/"
   blog: ""
+  image: "/images/projects/dark-pdf.png"
+  playbackId: "24Fb002dZtSgwHK45pROvosml67XtfcgR1J9lFAKD02pg"
   tech: ["React", "TypeScript", "Tailwind CSS", "PDF.js"]
 
 - id: kyntra
@@ -117,10 +128,12 @@
   github: "https://github.com/Starz099/kyntra"
   demo: "https://kyntra.starzz.dev"
   blog: ""
+  image: "/images/projects/kyntra.png"
+  playbackId: "2W94wPYGSOLUv4yyxtR01gsbbdHWK6KUyE2ZArF89iCg"
   tech:
     ["Node.js", "TypeScript", "Commander.js", "Inquirer", "Chalk", "simple-git"]
 
-- id: whiff.gg
+- id: whiff-gg
   title: Whiff.gg
   year: "2024"
   group: web
@@ -131,6 +144,8 @@
   github: "https://github.com/Starz099/whiff.gg"
   demo: ""
   blog: ""
+  image: "/images/projects/whiff-gg.png"
+  playbackId: "1MjB4i8Uuq8e1BOTzkl1SxdA67uj1LUf8EzftH287l4"
   tech:
     ["Next.js", "TypeScript", "Tailwind CSS", "Puppeteer", "Azure AI Inference"]
 
@@ -145,6 +160,8 @@
   github: "https://github.com/Starz099/writso"
   demo: "https://writso.vercel.app"
   blog: ""
+  image: "/images/projects/writso.png"
+  playbackId: "9IfxzYdvnoBxoJ00HSlR00pDBNp2hT01oUTAV6IZCYjJok"
   tech: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Prisma"]
 
 - id: token-launchpad
@@ -156,4 +173,6 @@
   github: "https://github.com/starz099/token-launchpad"
   demo: "https://token-launchpad-rho.vercel.app/"
   blog: ""
+  image: "/images/projects/token-launchpad.png"
+  playbackId: "nivoGP8L01ji6dfZQ9pq89fUS11juZEAjDiHeak01uICg"
   tech: ["React", "JavaScript", "Solana web3.js", "Tailwind CSS"]

@@ -6,13 +6,8 @@
   <body>
     {{ partial "header.html" . }}
 
-    <main class="container">
-      <div class="row-eq-height">
-        <div class="col-main">
-          {{ block "main" . }}{{ end }}
-        </div>
-        {{ partial "sidebar.html" . }}
-      </div>
+    <main class="site-main container">
+      {{ block "main" . }}{{ end }}
     </main>
 
     {{ partial "footer.html" . }}

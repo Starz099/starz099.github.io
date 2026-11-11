@@ -1,16 +1,17 @@
 {{ define "main" }}
-  {{ $url := site.Params.resumeURL }}
-  {{ $action := "" }}
-  {{ if $url }}
-    {{ $action = printf `<a class="btn-pill" href="%s" target="_blank" rel="noopener noreferrer">Open in Full Tab ↗</a>` $url }}
-  {{ end }}
-  {{ partial "page-header.html" (dict "title" "Curriculum Vitae" "description" "Summary of engineering experience, education, and technical background." "action" $action) }}
+<div class="resume-page">
+  <div class="resume-frame-container">
+    <iframe
+      src="https://drive.google.com/file/d/1aN-sLiX8kMN_bIoZ3ga625D2cm_DFWwl/preview"
+      class="resume-iframe"
+      title="Mayank's Resume"
+      allow="autoplay"
+      loading="lazy"
+    ></iframe>
+  </div>
 
-  {{ if $url }}
-    <div class="resume-frame">
-      <iframe src="{{ $url }}" title="Resume Document"></iframe>
-    </div>
-  {{ else }}
-    <div class="prose">{{ .Content }}</div>
-  {{ end }}
+  <p class="resume-footer-note">
+    Trouble viewing the document? <a href="https://drive.google.com/file/d/1aN-sLiX8kMN_bIoZ3ga625D2cm_DFWwl/view?usp=sharing" target="_blank" rel="noopener noreferrer">Click here to open it directly in Google Drive</a>.
+  </p>
+</div>
 {{ end }}

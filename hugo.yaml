@@ -11,7 +11,7 @@ taxonomies:
 params:
   author: "Mayank"
   handle: "@Starz099"
-  email: "contact@starzz.dev"
+  email: "mayankbh064@gmail.com"
   role: "Software Engineer"
   bio: "I build desktop tools, systems utilities, and web apps."
   themecolor: "#16a0d4"
@@ -19,6 +19,7 @@ params:
   description: "Software engineer building desktop utilities, tools in Rust, and reliable web applications. Building fast, failing fast, learning faster."
   social:
     github: "https://github.com/Starz099"
+    blender: "https://projects.blender.org/starz099/"
     x: "https://x.com/mayank0166"
     linkedin: "https://www.linkedin.com/in/mayank016/"
     codeforces: "https://codeforces.com/profile/Starz099"

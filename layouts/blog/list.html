@@ -1,14 +1,211 @@
 {{ define "main" }}
-  {{ partial "page-header.html" (dict "title" .Title "description" .Params.description "accent" "sky") }}
+<div class="blog-timeline-page">
+  <!-- VS Code-style Sticky Breadcrumb Navigation -->
+  <nav class="vscode-breadcrumb" id="blog-breadcrumb" aria-label="Blog essay navigation">
+    <div class="breadcrumb-inner">
+      <div class="breadcrumb-trail">
+        <a href="{{ "/blog/" | relURL }}" class="breadcrumb-node breadcrumb-root">
+          <svg class="breadcrumb-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          <span class="breadcrumb-text">Blog</span>
+        </a>
+        <span class="breadcrumb-sep">›</span>
+        <div class="breadcrumb-dropdown-wrap" id="breadcrumb-dropdown-wrap">
+          <button type="button" class="breadcrumb-btn" id="breadcrumb-btn" aria-haspopup="listbox" aria-expanded="false">
+            <span class="breadcrumb-active-title" id="breadcrumb-active-title">Select an essay to jump...</span>
+            <svg class="breadcrumb-caret" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="breadcrumb-menu" id="breadcrumb-menu" role="listbox">
+            {{ range .Pages.ByDate.Reverse }}
+              <a href="#{{ .File.TranslationBaseName }}" class="breadcrumb-option" data-slug="{{ .File.TranslationBaseName }}" data-title="{{ .Title }}">
+                <span class="breadcrumb-opt-date">{{ .Date.Format "2006-01-02" }}</span>
+                <span class="breadcrumb-opt-title">{{ .Title }}</span>
+              </a>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+      <div class="breadcrumb-meta">
+        <span class="breadcrumb-counter">{{ len .Pages }} essays on timeline</span>
+      </div>
+    </div>
+    <div class="breadcrumb-progress-track">
+      <div class="breadcrumb-progress-bar" id="breadcrumb-progress-bar"></div>
+    </div>
+  </nav>
 
-  <div class="blog-cards">
+  <!-- Continuous Blog Timeline Stream -->
+  <div class="timeline-stream">
     {{ range .Pages.ByDate.Reverse }}
-      <a class="blog-card" href="{{ .RelPermalink }}">
-        <span class="blog-card-date">{{ .Date.Format "2006-01-02" }}</span>
-        <h2 class="blog-card-title">{{ .Title }}</h2>
-        <p class="blog-card-desc">{{ .Params.description }}</p>
-        <span class="blog-card-more">Read →</span>
-      </a>
+      <article id="{{ .File.TranslationBaseName }}" class="timeline-article" data-slug="{{ .File.TranslationBaseName }}" data-title="{{ .Title }}">
+        <header class="timeline-header">
+          <div class="timeline-meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+            <span class="dot">·</span>
+            <span>{{ .ReadingTime }} min read</span>
+            {{ with .Params.tags }}
+              <span class="dot">·</span>
+              <span class="timeline-tags">
+                {{ range . }}<span class="tech-pill">{{ . }}</span>{{ end }}
+              </span>
+            {{ end }}
+          </div>
+          <h2 class="timeline-title">
+            <a href="#{{ .File.TranslationBaseName }}">{{ .Title }}</a>
+          </h2>
+          {{ with .Params.description }}
+            <p class="timeline-lead">{{ . }}</p>
+          {{ end }}
+        </header>
+
+        <div class="timeline-body prose">
+          {{ .Content }}
+        </div>
+
+        <footer class="timeline-footer">
+          <div class="timeline-footer-actions">
+            <a href="#{{ .File.TranslationBaseName }}" class="timeline-anchor-link"># permalink</a>
+            <span class="dot">·</span>
+            <a href="{{ .RelPermalink }}" class="timeline-standalone-link">standalone page ↗</a>
+            <span class="dot">·</span>
+            <a href="#blog-breadcrumb" class="timeline-top-link">↑ back to top</a>
+          </div>
+        </footer>
+      </article>
+      <div class="timeline-divider" aria-hidden="true"></div>
     {{ end }}
   </div>
+</div>
+
+<!-- Interactive VS Code Breadcrumb & Scrollspy Script -->
+<script>
+  (function () {
+    var breadcrumbWrap = document.getElementById('breadcrumb-dropdown-wrap');
+    var triggerBtn = document.getElementById('breadcrumb-btn');
+    var menu = document.getElementById('breadcrumb-menu');
+    var labelEl = document.getElementById('breadcrumb-active-title');
+    var progressBar = document.getElementById('breadcrumb-progress-bar');
+    var articles = document.querySelectorAll('.timeline-article');
+    var options = document.querySelectorAll('.breadcrumb-option');
+
+    if (!triggerBtn || !menu || articles.length === 0) return;
+
+    // Toggle dropdown menu
+    function toggleMenu() {
+      var expanded = triggerBtn.getAttribute('aria-expanded') === 'true';
+      triggerBtn.setAttribute('aria-expanded', !expanded);
+      menu.classList.toggle('is-open', !expanded);
+    }
+
+    function closeMenu() {
+      triggerBtn.setAttribute('aria-expanded', 'false');
+      menu.classList.remove('is-open');
+    }
+
+    triggerBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!breadcrumbWrap.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        closeMenu();
+      }
+    });
+
+    // Smooth scroll on clicking option
+    options.forEach(function (opt) {
+      opt.addEventListener('click', function (e) {
+        e.preventDefault();
+        var slug = opt.getAttribute('data-slug');
+        var target = document.getElementById(slug);
+        if (target) {
+          closeMenu();
+          var navHeight = document.querySelector('.site-header') ? document.querySelector('.site-header').offsetHeight : 0;
+          var breadcrumbHeight = document.getElementById('blog-breadcrumb') ? document.getElementById('blog-breadcrumb').offsetHeight : 0;
+          var totalOffset = navHeight + breadcrumbHeight + 20;
+
+          var targetPos = target.getBoundingClientRect().top + window.pageYOffset - totalOffset;
+          window.scrollTo({ top: targetPos, behavior: 'smooth' });
+
+          if (history.replaceState) {
+            history.replaceState(null, null, '#' + slug);
+          }
+          setActiveArticle(slug, opt.getAttribute('data-title'));
+        }
+      });
+    });
+
+    function setActiveArticle(slug, title) {
+      if (title && labelEl) {
+        labelEl.textContent = title;
+      }
+      options.forEach(function (opt) {
+        if (opt.getAttribute('data-slug') === slug) {
+          opt.classList.add('is-active');
+        } else {
+          opt.classList.remove('is-active');
+        }
+      });
+    }
+
+    // IntersectionObserver to sync breadcrumb with scroll position
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var slug = entry.target.getAttribute('data-slug');
+            var title = entry.target.getAttribute('data-title');
+            setActiveArticle(slug, title);
+          }
+        });
+      },
+      {
+        rootMargin: '-20% 0px -60% 0px',
+        threshold: 0
+      }
+    );
+
+    articles.forEach(function (article) {
+      observer.observe(article);
+    });
+
+    // Scroll progress bar
+    window.addEventListener('scroll', function () {
+      var scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollTotal > 0 && progressBar) {
+        var progress = (window.pageYOffset / scrollTotal) * 100;
+        progressBar.style.width = Math.min(100, Math.max(0, progress)) + '%';
+      }
+    }, { passive: true });
+
+    // Handle incoming URL hash (e.g. /blog/#making-tura)
+    if (window.location.hash) {
+      var hash = window.location.hash.substring(1);
+      var target = document.getElementById(hash);
+      if (target) {
+        setTimeout(function () {
+          var navHeight = document.querySelector('.site-header') ? document.querySelector('.site-header').offsetHeight : 0;
+          var breadcrumbHeight = document.getElementById('blog-breadcrumb') ? document.getElementById('blog-breadcrumb').offsetHeight : 0;
+          var totalOffset = navHeight + breadcrumbHeight + 20;
+          var targetPos = target.getBoundingClientRect().top + window.pageYOffset - totalOffset;
+          window.scrollTo({ top: targetPos, behavior: 'smooth' });
+          setActiveArticle(hash, target.getAttribute('data-title'));
+        }, 100);
+      }
+    } else if (articles[0]) {
+      setActiveArticle(articles[0].getAttribute('data-slug'), articles[0].getAttribute('data-title'));
+    }
+  })();
+</script>
 {{ end }}

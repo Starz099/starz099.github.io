@@ -31,7 +31,7 @@
   href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..800;1,400..600&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&display=swap"
   rel="stylesheet"
 />
-<link rel="stylesheet" href="{{ "css/main.css" | relURL }}" />
+<link rel="stylesheet" href="{{ "css/main.css" | relURL }}?v={{ now.Unix }}" />
 <link rel="icon" href="{{ "favicon.ico" | relURL }}" />
 {{ with .OutputFormats.Get "rss" }}
   <link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}" />
