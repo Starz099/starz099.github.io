@@ -150,28 +150,25 @@ svg {
 }
 
 /* ==========================================================================
-   Top Navbar: Paperish Watercolor Wash & Painted Rough Edge
+   Top Navbar: Contained Width & Aras-Style Organic Brush Edge
    ========================================================================== */
 
 .site-header {
   position: relative;
   background-color: var(--navbar-wash);
+  max-width: 840px;
+  margin: 0 auto;
   z-index: 20;
 }
 
-.header-band {
-  position: relative;
-  padding: 0.75rem 0;
-}
-
-/* Painted rough watercolor brush bottom edge */
-.header-band::after {
+/* Organic sweeping brush bottom edge (Aras specification: 512px 24px) */
+.site-header::after {
   content: "";
   position: absolute;
-  bottom: -8px;
+  bottom: -20px;
   left: 0;
-  right: 0;
-  height: 8px;
+  width: 100%;
+  height: 20px;
   pointer-events: none;
   background-color: var(--navbar-wash);
   -webkit-mask-image: url("../images/brush-mask-hor.png");
@@ -180,48 +177,24 @@ svg {
   mask-repeat: repeat-x;
   -webkit-mask-position: 0 0;
   mask-position: 0 0;
-  -webkit-mask-size: 48px 8px;
-  mask-size: 48px 8px;
+  -webkit-mask-size: 512px 20px;
+  mask-size: 512px 20px;
   -webkit-mask-mode: luminance;
   mask-mode: luminance;
+  z-index: 2;
 }
 
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.header-brand {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.45rem;
-  text-decoration: none;
-}
-
-.brand-name {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #12284c;
-  letter-spacing: -0.02em;
-}
-
-.brand-handle {
-  font-size: 0.88rem;
-  color: #2b4f7a;
-  font-weight: 500;
-}
-
-.header-brand:hover .brand-name {
-  text-decoration: underline;
+  padding: 0.65rem 1.25rem 0.05rem;
 }
 
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
   flex-wrap: wrap;
 }
 
@@ -229,110 +202,198 @@ svg {
   position: relative;
   display: inline-flex;
   align-items: center;
-  padding: 0.3rem 0.75rem;
+  padding: 0.28rem 0.85rem;
   font-size: 0.95rem;
   font-weight: 500;
-  color: #163660;
-  text-decoration: none;
-  border-radius: 2px;
-  transition: color 0.12s ease;
-}
-
-.nav-item:hover {
-  color: #0b1f3a;
-  text-decoration: underline;
-}
-
-/* Active Nav Tab: Aras-style painted rough brush highlight with white text */
-.nav-item.is-active {
-  background-color: var(--blue-dark1);
-  color: #ffffff !important;
-  font-weight: 600;
-  text-decoration: none;
+  color: #12305a;
+  text-decoration: none !important;
+  cursor: pointer;
   z-index: 1;
 }
 
-.nav-item.is-active::before {
-  content: "";
-  position: absolute;
-  top: -5px;
-  left: 0;
-  right: 0;
-  height: 5px;
-  pointer-events: none;
-  background-color: var(--blue-dark1);
-  -webkit-mask-image: url("../images/brush-mask-hor.png");
-  mask-image: url("../images/brush-mask-hor.png");
-  -webkit-mask-repeat: repeat-x;
-  mask-repeat: repeat-x;
-  -webkit-mask-size: 48px 5px;
-  mask-size: 48px 5px;
-  -webkit-mask-mode: luminance;
-  mask-mode: luminance;
-  transform: rotate(180deg);
-}
-
-.nav-item.is-active::after {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  right: 0;
-  height: 6px;
-  pointer-events: none;
-  background-color: var(--blue-dark1);
-  -webkit-mask-image: url("../images/brush-mask-hor.png");
-  mask-image: url("../images/brush-mask-hor.png");
-  -webkit-mask-repeat: repeat-x;
-  mask-repeat: repeat-x;
-  -webkit-mask-size: 48px 6px;
-  mask-size: 48px 6px;
-  -webkit-mask-mode: luminance;
-  mask-mode: luminance;
+.nav-item,
+.nav-item:hover,
+.nav-item:focus,
+.nav-item:active,
+.nav-item.is-active,
+.nav-item .nav-label {
+  text-decoration: none !important;
 }
 
 .nav-item .nav-label {
   position: relative;
+  z-index: 3;
+  transition: color 0.12s ease;
+}
+
+.nav-brush-bg {
+  position: absolute;
+  inset: 0;
+  background-color: transparent;
+  pointer-events: none;
   z-index: 1;
+  transition: background-color 0.12s ease;
 }
 
-.nav-item.is-active .nav-label::before {
+/* 4 Organic brush edge pseudo-elements */
+.nav-item::before,
+.nav-item::after,
+.nav-brush-bg::before,
+.nav-brush-bg::after {
   content: "";
   position: absolute;
-  top: -5px;
-  bottom: -6px;
-  left: -12px;
-  width: 5px;
   pointer-events: none;
-  background-color: var(--blue-dark1);
-  -webkit-mask-image: url("../images/brush-mask-ver.png");
-  mask-image: url("../images/brush-mask-ver.png");
-  -webkit-mask-repeat: repeat-y;
-  mask-repeat: repeat-y;
-  -webkit-mask-size: 5px 48px;
-  mask-size: 5px 48px;
-  -webkit-mask-mode: luminance;
-  mask-mode: luminance;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  z-index: 2;
 }
 
-.nav-item.is-active .nav-label::after {
-  content: "";
-  position: absolute;
+/* Top brush edge: 3px overlap with central badge to eliminate seams */
+.nav-item::before {
   top: -5px;
-  bottom: -6px;
-  right: -12px;
-  width: 5px;
-  pointer-events: none;
-  background-color: var(--blue-dark1);
-  -webkit-mask-image: url("../images/brush-mask-ver.png");
-  mask-image: url("../images/brush-mask-ver.png");
-  -webkit-mask-repeat: repeat-y;
-  mask-repeat: repeat-y;
-  -webkit-mask-size: 5px 48px;
-  mask-size: 5px 48px;
+  left: -2px;
+  right: -2px;
+  height: 8px;
+  -webkit-mask-image: url("../images/brush-mask-hor.png");
+  mask-image: url("../images/brush-mask-hor.png");
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+  -webkit-mask-size: 140px 8px;
+  mask-size: 140px 8px;
+  -webkit-mask-position: var(--nav-top-pos, 0 0);
+  mask-position: var(--nav-top-pos, 0 0);
   -webkit-mask-mode: luminance;
   mask-mode: luminance;
   transform: rotate(180deg);
+}
+
+/* Bottom brush edge: 3px overlap with central badge to eliminate seams */
+.nav-item::after {
+  bottom: -6px;
+  left: -2px;
+  right: -2px;
+  height: 9px;
+  -webkit-mask-image: url("../images/brush-mask-hor.png");
+  mask-image: url("../images/brush-mask-hor.png");
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+  -webkit-mask-size: 140px 9px;
+  mask-size: 140px 9px;
+  -webkit-mask-position: var(--nav-bot-pos, 0 0);
+  mask-position: var(--nav-bot-pos, 0 0);
+  -webkit-mask-mode: luminance;
+  mask-mode: luminance;
+}
+
+/* Left brush edge: 3px overlap with central badge to eliminate seams */
+.nav-brush-bg::before {
+  top: -2px;
+  bottom: -2px;
+  left: -5px;
+  width: 8px;
+  -webkit-mask-image: url("../images/brush-mask-ver.png");
+  mask-image: url("../images/brush-mask-ver.png");
+  -webkit-mask-repeat: repeat-y;
+  mask-repeat: repeat-y;
+  -webkit-mask-size: 8px 140px;
+  mask-size: 8px 140px;
+  -webkit-mask-position: var(--nav-lft-pos, 0 0);
+  mask-position: var(--nav-lft-pos, 0 0);
+  -webkit-mask-mode: luminance;
+  mask-mode: luminance;
+}
+
+/* Right brush edge: 3px overlap with central badge to eliminate seams */
+.nav-brush-bg::after {
+  top: -2px;
+  bottom: -2px;
+  right: -5px;
+  width: 8px;
+  -webkit-mask-image: url("../images/brush-mask-ver.png");
+  mask-image: url("../images/brush-mask-ver.png");
+  -webkit-mask-repeat: repeat-y;
+  mask-repeat: repeat-y;
+  -webkit-mask-size: 8px 140px;
+  mask-size: 8px 140px;
+  -webkit-mask-position: var(--nav-rgt-pos, 0 0);
+  mask-position: var(--nav-rgt-pos, 0 0);
+  -webkit-mask-mode: luminance;
+  mask-mode: luminance;
+  transform: rotate(180deg);
+}
+
+/* Deterministic mask offsets by item index (organic variation per item) */
+.nav-item:nth-child(4n + 1),
+.nav-item[data-nav-index="0"] {
+  --nav-top-pos: 0 0;
+  --nav-bot-pos: -24px 0;
+  --nav-lft-pos: 0 0;
+  --nav-rgt-pos: 0 -42px;
+}
+
+.nav-item:nth-child(4n + 2),
+.nav-item[data-nav-index="1"] {
+  --nav-top-pos: -48px 0;
+  --nav-bot-pos: -96px 0;
+  --nav-lft-pos: 0 -58px;
+  --nav-rgt-pos: 0 -18px;
+}
+
+.nav-item:nth-child(4n + 3),
+.nav-item[data-nav-index="2"] {
+  --nav-top-pos: -82px 0;
+  --nav-bot-pos: -136px 0;
+  --nav-lft-pos: 0 -114px;
+  --nav-rgt-pos: 0 -84px;
+}
+
+.nav-item:nth-child(4n + 4),
+.nav-item[data-nav-index="3"] {
+  --nav-top-pos: -128px 0;
+  --nav-bot-pos: -52px 0;
+  --nav-lft-pos: 0 -36px;
+  --nav-rgt-pos: 0 -126px;
+}
+
+/* Active Nav Tab: solid paint stroke badge */
+.nav-item.is-active .nav-label {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.nav-item.is-active .nav-brush-bg {
+  background-color: var(--blue-dark1);
+}
+
+.nav-item.is-active::before,
+.nav-item.is-active::after,
+.nav-item.is-active .nav-brush-bg::before,
+.nav-item.is-active .nav-brush-bg::after {
+  opacity: 1;
+  background-color: var(--blue-dark1);
+}
+
+/* Hover Nav Tab: painted highlight with same organic brush edge */
+.nav-item:hover .nav-label,
+.nav-item.is-hover .nav-label {
+  color: #ffffff !important;
+}
+
+.nav-item:hover:not(.is-active) .nav-brush-bg,
+.nav-item.is-hover:not(.is-active) .nav-brush-bg {
+  background-color: #1a6cb6;
+}
+
+.nav-item:hover:not(.is-active)::before,
+.nav-item:hover:not(.is-active)::after,
+.nav-item:hover:not(.is-active) .nav-brush-bg::before,
+.nav-item:hover:not(.is-active) .nav-brush-bg::after,
+.nav-item.is-hover:not(.is-active)::before,
+.nav-item.is-hover:not(.is-active)::after,
+.nav-item.is-hover:not(.is-active) .nav-brush-bg::before,
+.nav-item.is-hover:not(.is-active) .nav-brush-bg::after {
+  opacity: 1;
+  background-color: #1a6cb6;
 }
 
 /* ==========================================================================
