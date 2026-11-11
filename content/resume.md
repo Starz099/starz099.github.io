@@ -28,7 +28,7 @@ description: "Summary of engineering experience, education, and technical backgr
   </dl>
 
   <div class="btn-row">
-    <a class="btn-pill btn-pill--dark" href="mailto:mayankbh064@gmail.com">Email me →</a>
+    <a class="btn-pill btn-pill--dark" href="mailto:work.mayankbh064@gmail.com">Email me →</a>
     <a class="btn-pill" href="/projects/">View projects →</a>
   </div>
 </div>

@@ -66,7 +66,7 @@
     Uses 4 parallel TCP streams and ChaCha20-Poly1305 encryption to saturate your real bandwidth.
   github: "https://github.com/Starz099/tura"
   demo: ""
-  blog: "/blog/making-tura/"
+  blog: "/blog/#making-tura"
   image: "/images/projects/tura.png"
   playbackId: "vE7iWeax4JgFQgPdplvkowJlUNRaFhTKzl1pK3r1isg"
   tech: ["Rust", "Clap", "Tokio", "STUN", "Blake3", "ChaCha20Poly1305", "MQTT"]
@@ -102,7 +102,7 @@
     boundaries, embeds via Pinecone, and points directly to the exact page references.
   github: "https://github.com/Starz099/Leerio"
   demo: "https://leerio.vercel.app/"
-  blog: "/blog/rag-0-to-1/"
+  blog: "/blog/#rag-0-to-1"
   image: "/images/projects/leerio.png"
   playbackId: "tI00LODq9Z0101RrRV2dc02shvfP88GOFVVor5mdS015iYXg"
   tech:

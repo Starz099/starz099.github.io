@@ -9,7 +9,7 @@
 - X (Twitter): https://x.com/mayank0166
 - LeetCode: https://leetcode.com/Starz099
 - Discord: https://discord.com/users/1226021151688626206
-- Email: mayankbh064@gmail.com
+- Email: work.mayankbh064@gmail.com
 
 ## Projects
 - **Leerio**: AI-powered platform enabling conversational querying and summarisation of multi-page PDF documents using a Retrieval-Augmented Generation (RAG) pipeline. (https://leerio.vercel.app/)

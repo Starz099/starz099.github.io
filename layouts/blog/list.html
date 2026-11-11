@@ -3,8 +3,6 @@
   <!-- Minimalist Editorial Sticky Navigation -->
   <nav class="blog-nav-bar" id="blog-nav-bar" aria-label="Blog essay navigation">
     <div class="blog-nav-inner">
-      <span class="blog-nav-label">Blog</span>
-      <span class="blog-nav-sep">/</span>
       <div class="blog-nav-dropdown" id="breadcrumb-dropdown-wrap">
         <button type="button" class="blog-nav-jump" id="breadcrumb-btn" aria-haspopup="listbox" aria-expanded="false">
           <span class="blog-nav-current" id="breadcrumb-active-title">Jump to essay...</span>
@@ -33,12 +31,6 @@
             <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
             <span class="dot">·</span>
             <span>{{ .ReadingTime }} min read</span>
-            {{ with .Params.tags }}
-              <span class="dot">·</span>
-              <span class="timeline-tags">
-                {{ range . }}<span class="tech-pill">{{ . }}</span>{{ end }}
-              </span>
-            {{ end }}
           </div>
           <h2 class="timeline-title">
             <a href="#{{ .File.TranslationBaseName }}">{{ .Title }}</a>
@@ -51,20 +43,21 @@
         <div class="timeline-body prose">
           {{ .Content }}
         </div>
-
-        <footer class="timeline-footer">
-          <div class="timeline-footer-actions">
-            <a href="#{{ .File.TranslationBaseName }}" class="timeline-anchor-link"># permalink</a>
-            <span class="dot">·</span>
-            <a href="{{ .RelPermalink }}" class="timeline-standalone-link">standalone page ↗</a>
-            <span class="dot">·</span>
-            <a href="#blog-nav-bar" class="timeline-top-link">↑ back to top</a>
-          </div>
-        </footer>
       </article>
       <div class="timeline-divider" aria-hidden="true"></div>
     {{ end }}
   </div>
+
+  <!-- Floating Back-to-Top Toast with Organic Brush Boundary -->
+  <button type="button" class="back-to-top-toast" id="back-to-top-toast" aria-label="Back to top">
+    <span class="toast-brush-bg" aria-hidden="true"></span>
+    <span class="toast-content">
+      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+      <span>top</span>
+    </span>
+  </button>
 </div>
 
 <!-- Interactive Editorial Navigation & Scrollspy Script -->
@@ -163,6 +156,24 @@
       observer.observe(article);
     });
 
+    // Floating Back-to-Top Toast logic
+    var backToTopBtn = document.getElementById('back-to-top-toast');
+    function updateToast() {
+      if (!backToTopBtn) return;
+      if (window.pageYOffset > 400) {
+        backToTopBtn.classList.add('is-visible');
+      } else {
+        backToTopBtn.classList.remove('is-visible');
+      }
+    }
+    if (backToTopBtn) {
+      window.addEventListener('scroll', updateToast, { passive: true });
+
+      backToTopBtn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
     // Handle hash on page load
     if (window.location.hash) {
       var hash = window.location.hash.substring(1);
@@ -175,6 +186,7 @@
           var targetPos = target.getBoundingClientRect().top + window.pageYOffset - totalOffset;
           window.scrollTo({ top: targetPos, behavior: 'smooth' });
           setActiveArticle(hash, target.getAttribute('data-title'));
+          updateToast();
         }, 100);
       }
     } else if (articles[0]) {
