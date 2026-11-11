@@ -1,27 +1,12 @@
-# Project catalogue. Order here is the display order (home shows the first four).
+# Project catalogue. Ordered to match GitHub repositories order (most recently active on GitHub down to older).
 # group: systems (Systems & Desktop Tools) | web (Web Platforms & Applications)
-- id: rush
-  title: Rush
+- id: oto
+  title: Oto
   year: "2025–2026"
   group: systems
   description: >-
-    The local-first video editor with an integrated AI agent. Transcribe media,
-    search visual frames, and control your timeline directly from chat prompts.
-  github: "https://github.com/Starz099/rush"
-  demo: "https://rush.starzz.dev/"
-  blog: ""
-  image: "/images/projects/rush.png"
-  playbackId: ""
-  tech: ["Rust", "TypeScript", "Tauri", "FFmpeg", "React", "SQLite"]
-
-- id: oto
-  title: Oto
-  year: "2025"
-  group: systems
-  description: >-
-    A lightweight, keyboard-first desktop audio mixer overlay for Windows written
-    in Rust, featuring app-specific volume control and zero-latency global
-    push-to-talk, currently supporting Discord.
+    A keyboard-driven desktop audio overlay for Windows. Tweak per-application volume
+    sliders instantly without Alt-Tabbing mid-game, plus zero-latency global push-to-talk for Discord.
   github: "https://github.com/Starz099/oto"
   demo: "https://oto.starzz.dev/"
   blog: ""
@@ -29,31 +14,95 @@
   playbackId: "YCO2xZqsqBxhWL3XBl6kSf016GeKdzxM01AAtRnX1kK2Y"
   tech: ["Rust", "Egui", "Windows WASAPI", "Discord API"]
 
-- id: tura
-  title: Tura
-  year: "2024"
+- id: rush
+  title: Rush
+  year: "2025–2026"
   group: systems
   description: >-
-    A blazing-fast, file transfer CLI written in Rust. Using 4 parallel TCP
-    streams, async Tokio I/O, and ChaCha20-Poly1305 End-to-End Encryption.
+    A local-first video editor built without legacy bloat. Includes an embedded AI agent
+    that transcribes footage, runs visual frame search, and edits the timeline directly from chat.
+  github: "https://github.com/Starz099/rush"
+  demo: "https://rush.starzz.dev/"
+  blog: ""
+  image: "/images/projects/rush.png"
+  playbackId: ""
+  tech: ["Rust", "TypeScript", "Tauri", "FFmpeg", "React", "SQLite"]
+
+- id: aetura
+  title: Aetura
+  year: "2026"
+  group: systems
+  description: >-
+    Desktop workflow mapper that navigates web application flows, records automated browser actions,
+    and generates clean product demo recordings without fussy manual screen capture.
+  github: "https://github.com/Starz099/aetura"
+  demo: ""
+  blog: ""
+  image: ""
+  playbackId: ""
+  tech: ["Tauri", "Rust", "TypeScript", "Python", "React"]
+
+- id: kyntra
+  title: Kyntra
+  year: "2024–2026"
+  group: systems
+  description: >-
+    Terminal assistant that inspects your staged git diffs and drafts concise, conventional commit
+    messages and branch names. Eliminates the agony of thinking up commit titles.
+  github: "https://github.com/Starz099/kyntra"
+  demo: "https://kyntra.starzz.dev"
+  blog: ""
+  image: "/images/projects/kyntra.png"
+  playbackId: "2W94wPYGSOLUv4yyxtR01gsbbdHWK6KUyE2ZArF89iCg"
+  tech:
+    ["TypeScript", "Node.js", "Commander.js", "Inquirer", "Chalk", "simple-git"]
+
+- id: tura
+  title: Tura
+  year: "2024–2026"
+  group: systems
+  description: >-
+    P2P file transfer CLI that punches straight through NATs without relay servers.
+    Uses 4 parallel TCP streams and ChaCha20-Poly1305 encryption to saturate your real bandwidth.
   github: "https://github.com/Starz099/tura"
   demo: ""
-  blog: "/blog/#making-tura"
+  blog: "/blog/making-tura/"
   image: "/images/projects/tura.png"
   playbackId: "vE7iWeax4JgFQgPdplvkowJlUNRaFhTKzl1pK3r1isg"
   tech: ["Rust", "Clap", "Tokio", "STUN", "Blake3", "ChaCha20Poly1305", "MQTT"]
 
-- id: leerio
-  title: Leerio
-  year: "2024"
+- id: kestro
+  title: Kestro
+  year: "2024–2026"
   group: web
   description: >-
-    AI-powered platform enabling conversational querying and summarisation of
-    multi-page PDF documents using a Retrieval-Augmented Generation (RAG)
-    pipeline.
-  github: "https://github.com/starz099/Leerio"
+    Typing speed tests for real code syntax instead of random prose. Practice typing
+    brackets, operators, and language keywords in a Monaco-powered editor to build actual muscle memory.
+  github: "https://github.com/Starz099/Kestro"
+  demo: "https://kestro.starzz.dev/"
+  blog: ""
+  image: "/images/projects/kestro.png"
+  playbackId: "i2nM3Y3NWY5Vie019QBXALFF4zLAAEG300rXNr01PFwKy4"
+  tech:
+    [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Monaco Editor",
+      "PostgreSQL",
+      "Prisma",
+    ]
+
+- id: leerio
+  title: Leerio
+  year: "2024–2026"
+  group: web
+  description: >-
+    Query dense technical PDFs without hallucinated answers. Chunks text along semantic
+    boundaries, embeds via Pinecone, and points directly to the exact page references.
+  github: "https://github.com/Starz099/Leerio"
   demo: "https://leerio.vercel.app/"
-  blog: "/blog/#rag-0-to-1"
+  blog: "/blog/rag-0-to-1/"
   image: "/images/projects/leerio.png"
   playbackId: "tI00LODq9Z0101RrRV2dc02shvfP88GOFVVor5mdS015iYXg"
   tech:
@@ -67,50 +116,13 @@
       "Pinecone",
     ]
 
-- id: kestro
-  title: Kestro
-  year: "2024"
-  group: web
-  description: >-
-    Platform to practice typing speed for code, not just text. Helps developers
-    build muscle memory for syntax using a smooth editor powered by Monaco
-    Editor.
-  github: "https://github.com/Starz099/Kestro"
-  demo: "https://kestro.starzz.dev/"
-  blog: ""
-  image: "/images/projects/kestro.png"
-  playbackId: "i2nM3Y3NWY5Vie019QBXALFF4zLAAEG300rXNr01PFwKy4"
-  tech:
-    [
-      "Next.js",
-      "TypeScript",
-      "Tailwind CSS",
-      "Monaco Editor",
-      "CodeMirror",
-      "Zustand",
-      "PostgreSQL",
-      "Prisma",
-    ]
-
-- id: hand-and-brain-chess
-  title: Hand and Brain Chess
-  year: "2024"
-  group: web
-  description: >-
-    An online platform for playing Hand and Brain Chess, allowing users to team
-    up and enjoy this unique chess variant with real-time gameplay.
-  github: "https://github.com/Starz099/chess"
-  demo: "https://chess-nu-seven.vercel.app/"
-  blog: ""
-  image: "/images/projects/hand-and-brain-chess.png"
-  playbackId: "gXx01r01ivGwsLlqxl2sO8tUopVMtbPcCCtnsJQGau2JQ"
-  tech: ["React", "TypeScript", "Tailwind CSS", "Socket.io", "Node.js"]
-
 - id: dark-pdf
   title: Dark-pdf
-  year: "2024"
+  year: "2024–2026"
   group: web
-  description: "Convert any PDF document to dark mode with a single click in your browser."
+  description: >-
+    Instant client-side dark mode for blinding white PDF textbooks and research papers.
+    Runs color inversion and luminance remapping directly on an HTML5 canvas without uploading your files anywhere.
   github: "https://github.com/Starz099/dark-pdf"
   demo: "https://dark-pdf.starzz.dev/"
   blog: ""
@@ -118,31 +130,15 @@
   playbackId: "24Fb002dZtSgwHK45pROvosml67XtfcgR1J9lFAKD02pg"
   tech: ["React", "TypeScript", "Tailwind CSS", "PDF.js"]
 
-- id: kyntra
-  title: Kyntra
-  year: "2024"
-  group: systems
-  description: >-
-    AI-powered CLI for smarter commits, better branch naming, and quick repo
-    understanding, all from the terminal.
-  github: "https://github.com/Starz099/kyntra"
-  demo: "https://kyntra.starzz.dev"
-  blog: ""
-  image: "/images/projects/kyntra.png"
-  playbackId: "2W94wPYGSOLUv4yyxtR01gsbbdHWK6KUyE2ZArF89iCg"
-  tech:
-    ["Node.js", "TypeScript", "Commander.js", "Inquirer", "Chalk", "simple-git"]
-
 - id: whiff-gg
   title: Whiff.gg
-  year: "2024"
+  year: "2024–2025"
   group: web
   description: >-
-    A fun web app where users enter their Valorant ID, get their stats scraped
-    from Valorant Tracker, and receive an AI-generated roast based on their
-    performance.
+    Pulls your public Valorant competitive stats and feeds your headshot percentage, ADR, and clutch
+    rate into an LLM to generate an unsparingly brutal roast of your gameplay.
   github: "https://github.com/Starz099/whiff.gg"
-  demo: ""
+  demo: "https://whiff.gg"
   blog: ""
   image: "/images/projects/whiff-gg.png"
   playbackId: "1MjB4i8Uuq8e1BOTzkl1SxdA67uj1LUf8EzftH287l4"
@@ -151,12 +147,11 @@
 
 - id: writso
   title: Writso
-  year: "2024"
+  year: "2024–2025"
   group: web
   description: >-
-    A writing practice web app that helps users improve their writing skills
-    through daily prompts, AI reviews, progress tracking, and community
-    feedback.
+    A writing practice space built around short daily prompts, AI critique rubrics,
+    and community feedback to get engineers and writers publishing consistently.
   github: "https://github.com/Starz099/writso"
   demo: "https://writso.vercel.app"
   blog: ""
@@ -164,15 +159,114 @@
   playbackId: "9IfxzYdvnoBxoJ00HSlR00pDBNp2hT01oUTAV6IZCYjJok"
   tech: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL", "Prisma"]
 
-- id: token-launchpad
-  title: Token-Launchpad
-  year: "2024"
+- id: dokchain
+  title: DoKChain
+  year: "2025"
   group: web
   description: >-
-    A decentralized platform that enables users to create custom Solana tokens.
-  github: "https://github.com/starz099/token-launchpad"
+    Decentralized document notarization on Solana. Generates cryptographic proofs of legal contracts
+    and diplomas, anchoring immutable timestamps on-chain alongside IPFS decentralized storage.
+  github: "https://github.com/Starz099/DoKChain"
+  demo: ""
+  blog: ""
+  image: ""
+  playbackId: ""
+  tech: ["Solana", "Rust", "Anchor", "IPFS", "TypeScript"]
+
+- id: hand-and-brain-chess
+  title: Hand and Brain Chess
+  year: "2024–2025"
+  group: web
+  description: >-
+    Real-time cooperative chess: one player names the piece type ('Bishop'), and their partner has to
+    decide where to move it. Simple rules, hilarious misunderstandings.
+  github: "https://github.com/Starz099/chess"
+  demo: "https://chess-nu-seven.vercel.app/"
+  blog: ""
+  image: "/images/projects/hand-and-brain-chess.png"
+  playbackId: "gXx01r01ivGwsLlqxl2sO8tUopVMtbPcCCtnsJQGau2JQ"
+  tech: ["React", "TypeScript", "Tailwind CSS", "Socket.io", "Node.js"]
+
+- id: fail-in-public
+  title: Fail in Public
+  year: "2025"
+  group: web
+  description: >-
+    Developer extension and public wall of shame that catches local compiler errors and stack traces,
+    then formats them into shareable graphic cards. Built to celebrate engineering faceplants.
+  github: "https://github.com/Starz099/FailinPublic"
+  demo: "https://tanmay17116.github.io/FailInPublic/"
+  blog: ""
+  image: ""
+  playbackId: ""
+  tech: ["TypeScript", "React", "VS Code API", "Tailwind CSS"]
+
+- id: second-brain
+  title: Second Brain
+  year: "2025"
+  group: web
+  description: >-
+    A distraction-free knowledge repository to save, categorize, and recall technical articles, code snippets,
+    and documentation links without drowning in open browser tabs.
+  github: "https://github.com/Starz099/second-brain"
+  demo: "https://second-brain-sage.vercel.app"
+  blog: ""
+  image: ""
+  playbackId: ""
+  tech: ["React", "TypeScript", "Tailwind CSS", "MongoDB", "Express"]
+
+- id: project-delta
+  title: Project Delta
+  year: "2025"
+  group: systems
+  description: >-
+    Interactive terminal CLI to aggregate developer ratings, profile progress, and recent submissions
+    across multiple competitive coding platforms in a single dashboard.
+  github: "https://github.com/RudraKumarSharma/Project-Delta"
+  demo: ""
+  blog: ""
+  image: ""
+  playbackId: ""
+  tech: ["Node.js", "JavaScript", "Inquirer", "Axios", "CLI"]
+
+- id: token-launchpad
+  title: Token-Launchpad
+  year: "2024–2025"
+  group: web
+  description: >-
+    Decentralized interface for deploying custom SPL tokens to Solana. Configures decimals,
+    total supply, and mint authority directly with wallet signing, with no custom contract compilation required.
+  github: "https://github.com/Starz099/token-launchpad"
   demo: "https://token-launchpad-rho.vercel.app/"
   blog: ""
   image: "/images/projects/token-launchpad.png"
   playbackId: "nivoGP8L01ji6dfZQ9pq89fUS11juZEAjDiHeak01uICg"
   tech: ["React", "JavaScript", "Solana web3.js", "Tailwind CSS"]
+
+- id: web-based-wallet
+  title: Web-Based Wallet
+  year: "2025"
+  group: web
+  description: >-
+    Hierarchical deterministic (HD) wallet built from scratch in React. Generates BIP-39 seed phrases,
+    derives cryptographic keypairs for Ethereum and Solana, and interacts directly with JSON-RPC endpoints.
+  github: "https://github.com/Starz099/web-based-wallet"
+  demo: ""
+  blog: ""
+  image: ""
+  playbackId: ""
+  tech: ["React", "JavaScript", "Solana web3.js", "ethers.js", "BIP-39"]
+
+- id: neuro-shift
+  title: Neuro-Shift
+  year: "2025"
+  group: systems
+  description: >-
+    Action-puzzle game built in C++. Players pilot VECTRA-8 and phase between two distinct visual dimensions
+    (Polygon and Hologram) with contrasting geometry to solve environmental puzzles.
+  github: "https://github.com/Starz099/Neuro-Shift"
+  demo: ""
+  blog: ""
+  image: ""
+  playbackId: ""
+  tech: ["C++", "SFML", "Game Dev"]

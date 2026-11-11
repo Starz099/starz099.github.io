@@ -1,40 +1,26 @@
 {{ define "main" }}
 <div class="blog-timeline-page">
-  <!-- VS Code-style Sticky Breadcrumb Navigation -->
-  <nav class="vscode-breadcrumb" id="blog-breadcrumb" aria-label="Blog essay navigation">
-    <div class="breadcrumb-inner">
-      <div class="breadcrumb-trail">
-        <a href="{{ "/blog/" | relURL }}" class="breadcrumb-node breadcrumb-root">
-          <svg class="breadcrumb-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+  <!-- Minimalist Editorial Sticky Navigation -->
+  <nav class="blog-nav-bar" id="blog-nav-bar" aria-label="Blog essay navigation">
+    <div class="blog-nav-inner">
+      <span class="blog-nav-label">Blog</span>
+      <span class="blog-nav-sep">/</span>
+      <div class="blog-nav-dropdown" id="breadcrumb-dropdown-wrap">
+        <button type="button" class="blog-nav-jump" id="breadcrumb-btn" aria-haspopup="listbox" aria-expanded="false">
+          <span class="blog-nav-current" id="breadcrumb-active-title">Jump to essay...</span>
+          <svg class="blog-nav-chevron" viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4 6 8 10 12 6"></polyline>
           </svg>
-          <span class="breadcrumb-text">Blog</span>
-        </a>
-        <span class="breadcrumb-sep">›</span>
-        <div class="breadcrumb-dropdown-wrap" id="breadcrumb-dropdown-wrap">
-          <button type="button" class="breadcrumb-btn" id="breadcrumb-btn" aria-haspopup="listbox" aria-expanded="false">
-            <span class="breadcrumb-active-title" id="breadcrumb-active-title">Select an essay to jump...</span>
-            <svg class="breadcrumb-caret" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-          <div class="breadcrumb-menu" id="breadcrumb-menu" role="listbox">
-            {{ range .Pages.ByDate.Reverse }}
-              <a href="#{{ .File.TranslationBaseName }}" class="breadcrumb-option" data-slug="{{ .File.TranslationBaseName }}" data-title="{{ .Title }}">
-                <span class="breadcrumb-opt-date">{{ .Date.Format "2006-01-02" }}</span>
-                <span class="breadcrumb-opt-title">{{ .Title }}</span>
-              </a>
-            {{ end }}
-          </div>
+        </button>
+        <div class="blog-nav-menu" id="breadcrumb-menu" role="listbox">
+          {{ range .Pages.ByDate.Reverse }}
+            <a href="#{{ .File.TranslationBaseName }}" class="blog-nav-item" data-slug="{{ .File.TranslationBaseName }}" data-title="{{ .Title }}">
+              <span class="blog-nav-date">{{ .Date.Format "Jan 2006" }}</span>
+              <span class="blog-nav-title">{{ .Title }}</span>
+            </a>
+          {{ end }}
         </div>
       </div>
-      <div class="breadcrumb-meta">
-        <span class="breadcrumb-counter">{{ len .Pages }} essays on timeline</span>
-      </div>
-    </div>
-    <div class="breadcrumb-progress-track">
-      <div class="breadcrumb-progress-bar" id="breadcrumb-progress-bar"></div>
     </div>
   </nav>
 
@@ -72,7 +58,7 @@
             <span class="dot">·</span>
             <a href="{{ .RelPermalink }}" class="timeline-standalone-link">standalone page ↗</a>
             <span class="dot">·</span>
-            <a href="#blog-breadcrumb" class="timeline-top-link">↑ back to top</a>
+            <a href="#blog-nav-bar" class="timeline-top-link">↑ back to top</a>
           </div>
         </footer>
       </article>
@@ -81,20 +67,18 @@
   </div>
 </div>
 
-<!-- Interactive VS Code Breadcrumb & Scrollspy Script -->
+<!-- Interactive Editorial Navigation & Scrollspy Script -->
 <script>
   (function () {
     var breadcrumbWrap = document.getElementById('breadcrumb-dropdown-wrap');
     var triggerBtn = document.getElementById('breadcrumb-btn');
     var menu = document.getElementById('breadcrumb-menu');
     var labelEl = document.getElementById('breadcrumb-active-title');
-    var progressBar = document.getElementById('breadcrumb-progress-bar');
     var articles = document.querySelectorAll('.timeline-article');
-    var options = document.querySelectorAll('.breadcrumb-option');
+    var options = document.querySelectorAll('.blog-nav-item');
 
     if (!triggerBtn || !menu || articles.length === 0) return;
 
-    // Toggle dropdown menu
     function toggleMenu() {
       var expanded = triggerBtn.getAttribute('aria-expanded') === 'true';
       triggerBtn.setAttribute('aria-expanded', !expanded);
@@ -123,7 +107,6 @@
       }
     });
 
-    // Smooth scroll on clicking option
     options.forEach(function (opt) {
       opt.addEventListener('click', function (e) {
         e.preventDefault();
@@ -132,8 +115,8 @@
         if (target) {
           closeMenu();
           var navHeight = document.querySelector('.site-header') ? document.querySelector('.site-header').offsetHeight : 0;
-          var breadcrumbHeight = document.getElementById('blog-breadcrumb') ? document.getElementById('blog-breadcrumb').offsetHeight : 0;
-          var totalOffset = navHeight + breadcrumbHeight + 20;
+          var barHeight = document.getElementById('blog-nav-bar') ? document.getElementById('blog-nav-bar').offsetHeight : 0;
+          var totalOffset = navHeight + barHeight + 20;
 
           var targetPos = target.getBoundingClientRect().top + window.pageYOffset - totalOffset;
           window.scrollTo({ top: targetPos, behavior: 'smooth' });
@@ -159,7 +142,7 @@
       });
     }
 
-    // IntersectionObserver to sync breadcrumb with scroll position
+    // IntersectionObserver to sync active essay with scroll
     var observer = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
@@ -171,7 +154,7 @@
         });
       },
       {
-        rootMargin: '-20% 0px -60% 0px',
+        rootMargin: '-15% 0px -65% 0px',
         threshold: 0
       }
     );
@@ -180,24 +163,15 @@
       observer.observe(article);
     });
 
-    // Scroll progress bar
-    window.addEventListener('scroll', function () {
-      var scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
-      if (scrollTotal > 0 && progressBar) {
-        var progress = (window.pageYOffset / scrollTotal) * 100;
-        progressBar.style.width = Math.min(100, Math.max(0, progress)) + '%';
-      }
-    }, { passive: true });
-
-    // Handle incoming URL hash (e.g. /blog/#making-tura)
+    // Handle hash on page load
     if (window.location.hash) {
       var hash = window.location.hash.substring(1);
       var target = document.getElementById(hash);
       if (target) {
         setTimeout(function () {
           var navHeight = document.querySelector('.site-header') ? document.querySelector('.site-header').offsetHeight : 0;
-          var breadcrumbHeight = document.getElementById('blog-breadcrumb') ? document.getElementById('blog-breadcrumb').offsetHeight : 0;
-          var totalOffset = navHeight + breadcrumbHeight + 20;
+          var barHeight = document.getElementById('blog-nav-bar') ? document.getElementById('blog-nav-bar').offsetHeight : 0;
+          var totalOffset = navHeight + barHeight + 20;
           var targetPos = target.getBoundingClientRect().top + window.pageYOffset - totalOffset;
           window.scrollTo({ top: targetPos, behavior: 'smooth' });
           setActiveArticle(hash, target.getAttribute('data-title'));

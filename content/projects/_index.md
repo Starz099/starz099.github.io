@@ -1,4 +1,4 @@
 ---
 title: "Projects"
-description: "Free-time, open source, and experimental software projects I've built. More smaller scripts and tools on GitHub."
+description: "Things I've built to scratch an itch, or solve problems I ran into."
 ---

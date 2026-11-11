@@ -1,236 +1,74 @@
 {{ define "main" }}
 <div class="projects-page">
-  <!-- VS Code-style Sticky Breadcrumb Navigation -->
-  <nav class="vscode-breadcrumb" id="projects-breadcrumb" aria-label="Projects navigation">
-    <div class="breadcrumb-inner">
-      <div class="breadcrumb-trail">
-        <a href="{{ "/projects/" | relURL }}" class="breadcrumb-node breadcrumb-root">
-          <svg class="breadcrumb-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="16 18 22 12 16 6"></polyline>
-            <polyline points="8 6 2 12 8 18"></polyline>
-          </svg>
-          <span class="breadcrumb-text">Projects</span>
-        </a>
-        <span class="breadcrumb-sep">›</span>
-        <div class="breadcrumb-dropdown-wrap" id="project-dropdown-wrap">
-          <button type="button" class="breadcrumb-btn" id="project-breadcrumb-btn" aria-haspopup="listbox" aria-expanded="false">
-            <span class="breadcrumb-active-title" id="project-breadcrumb-label">Jump to a project...</span>
-            <svg class="breadcrumb-caret" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-          <div class="breadcrumb-menu" id="project-breadcrumb-menu" role="listbox">
-            {{ range site.Data.projects }}
-              <a href="#project-{{ .id }}" class="breadcrumb-option" data-id="project-{{ .id }}" data-title="{{ .title }}">
-                <span class="breadcrumb-opt-date">{{ .year }}</span>
-                <span class="breadcrumb-opt-title">{{ .title }}</span>
+  <div class="projects-container">
+    <header class="page-intro">
+      <h1 class="page-title">Projects</h1>
+      <p class="page-desc">Things I've built to scratch an itch, or solve problems I ran into.</p>
+    </header>
+
+    <div class="projects-list">
+      {{ range $index, $project := site.Data.projects }}
+        {{ $num := printf "%02d" (add $index 1) }}
+        <div class="project-card" id="project-{{ .id }}">
+          <div class="project-card-header">
+            <div class="project-title-group">
+              <span class="project-index">{{ $num }}.</span>
+              <h2 class="project-title">{{ .title }}</h2>
+              <span class="project-year">{{ .year }}</span>
+            </div>
+            <div class="project-tags">
+              {{ range .tech }}<span class="tech-pill">{{ . }}</span>{{ end }}
+            </div>
+          </div>
+          <p class="project-desc">{{ .description }}</p>
+          <div class="project-actions">
+            {{ with .github }}
+              <a class="btn-action" href="{{ . }}" target="_blank" rel="noopener noreferrer">
+                <span class="btn-icon">{{ partial "icon.html" "github" }}</span>
+                <span>code ↗</span>
+              </a>
+            {{ end }}
+            {{ with .demo }}
+              <a class="btn-action" href="{{ . }}" target="_blank" rel="noopener noreferrer">
+                <span class="btn-icon">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                </span>
+                <span>live ↗</span>
+              </a>
+            {{ end }}
+            {{ with .playbackId }}
+              <button
+                type="button"
+                class="btn-action btn-preview-trigger"
+                data-id="{{ $project.id }}"
+                data-title="{{ $project.title }}"
+                data-year="{{ $project.year }}"
+                data-desc="{{ $project.description }}"
+                data-tech="{{ delimit $project.tech ", " }}"
+                data-github="{{ $project.github }}"
+                data-demo="{{ $project.demo }}"
+                data-blog="{{ $project.blog }}"
+                data-playback="{{ . }}"
+              >
+                <span class="btn-icon">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+                </span>
+                <span>video ▶</span>
+              </button>
+            {{ end }}
+            {{ with .blog }}
+              <a class="btn-action" href="{{ . | relURL }}">
+                <span class="btn-icon">{{ partial "icon.html" "pen" }}</span>
+                <span>writeup →</span>
               </a>
             {{ end }}
           </div>
         </div>
-      </div>
-      <div class="breadcrumb-meta">
-        <span class="breadcrumb-counter">{{ len site.Data.projects }} projects</span>
-      </div>
-    </div>
-  </nav>
-
-  <div class="projects-container">
-    <header class="page-intro">
-      <h1 class="page-title">Projects</h1>
-      <p class="page-desc">A catalogue of software tools, systems utilities, low-level experiments, and web applications I've engineered. Click any preview button for an in-depth demo or video walkthrough.</p>
-    </header>
-
-    <!-- Systems & Desktop Tools -->
-    <div class="project-group">
-      <div class="group-header">
-        <h2 class="group-title">Systems &amp; Desktop Tools</h2>
-        <span class="group-count">Rust · Native · Performance</span>
-      </div>
-      <div class="projects-list">
-        {{ range where site.Data.projects "group" "systems" }}
-          <div class="project-card" id="project-{{ .id }}">
-            <div class="project-card-header">
-              <div class="project-title-group">
-                <h3 class="project-title">{{ .title }}</h3>
-                <span class="project-year">{{ .year }}</span>
-              </div>
-              <div class="project-tags">
-                {{ range .tech }}<span class="tech-pill">{{ . }}</span> {{ end }}
-              </div>
-            </div>
-            <p class="project-desc">{{ .description }}</p>
-            <div class="project-actions">
-              {{ with .github }}
-                <a class="btn-action" href="{{ . }}" target="_blank" rel="noopener noreferrer">
-                  <span class="btn-icon">{{ partial "icon.html" "github" }}</span>
-                  <span>code</span>
-                </a>
-              {{ end }}
-              {{ with .demo }}
-                <a class="btn-action" href="{{ . }}" target="_blank" rel="noopener noreferrer">
-                  <span class="btn-icon">
-                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                  </span>
-                  <span>demo</span>
-                </a>
-              {{ end }}
-              {{ with .blog }}
-                <a class="btn-action" href="{{ . | relURL }}">
-                  <span class="btn-icon">{{ partial "icon.html" "pen" }}</span>
-                  <span>writeup</span>
-                </a>
-              {{ end }}
-              <button
-                type="button"
-                class="btn-action btn-preview-trigger"
-                data-id="{{ .id }}"
-                data-title="{{ .title }}"
-                data-year="{{ .year }}"
-                data-desc="{{ .description }}"
-                data-tech="{{ delimit .tech ", " }}"
-                data-github="{{ .github }}"
-                data-demo="{{ .demo }}"
-                data-blog="{{ .blog }}"
-                data-image="{{ .image | relURL }}"
-                data-playback="{{ .playbackId }}"
-              >
-                <span class="btn-icon">
-                  {{ if .playbackId }}
-                    <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
-                  {{ else }}
-                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                  {{ end }}
-                </span>
-                <span>{{ if .playbackId }}watch demo{{ else }}preview{{ end }}</span>
-              </button>
-            </div>
-          </div>
-        {{ end }}
-      </div>
-    </div>
-
-    <!-- Web Platforms & Applications -->
-    <div class="project-group">
-      <div class="group-header">
-        <h2 class="group-title">Web Platforms &amp; Applications</h2>
-        <span class="group-count">TypeScript · Next.js · Full-stack</span>
-      </div>
-      <div class="projects-list">
-        {{ range where site.Data.projects "group" "web" }}
-          <div class="project-card" id="project-{{ .id }}">
-            <div class="project-card-header">
-              <div class="project-title-group">
-                <h3 class="project-title">{{ .title }}</h3>
-                <span class="project-year">{{ .year }}</span>
-              </div>
-              <div class="project-tags">
-                {{ range .tech }}<span class="tech-pill">{{ . }}</span> {{ end }}
-              </div>
-            </div>
-            <p class="project-desc">{{ .description }}</p>
-            <div class="project-actions">
-              {{ with .github }}
-                <a class="btn-action" href="{{ . }}" target="_blank" rel="noopener noreferrer">
-                  <span class="btn-icon">{{ partial "icon.html" "github" }}</span>
-                  <span>code</span>
-                </a>
-              {{ end }}
-              {{ with .demo }}
-                <a class="btn-action" href="{{ . }}" target="_blank" rel="noopener noreferrer">
-                  <span class="btn-icon">
-                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                  </span>
-                  <span>demo</span>
-                </a>
-              {{ end }}
-              {{ with .blog }}
-                <a class="btn-action" href="{{ . | relURL }}">
-                  <span class="btn-icon">{{ partial "icon.html" "pen" }}</span>
-                  <span>writeup</span>
-                </a>
-              {{ end }}
-              <button
-                type="button"
-                class="btn-action btn-preview-trigger"
-                data-id="{{ .id }}"
-                data-title="{{ .title }}"
-                data-year="{{ .year }}"
-                data-desc="{{ .description }}"
-                data-tech="{{ delimit .tech ", " }}"
-                data-github="{{ .github }}"
-                data-demo="{{ .demo }}"
-                data-blog="{{ .blog }}"
-                data-image="{{ .image | relURL }}"
-                data-playback="{{ .playbackId }}"
-              >
-                <span class="btn-icon">
-                  {{ if .playbackId }}
-                    <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
-                  {{ else }}
-                    <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                  {{ end }}
-                </span>
-                <span>{{ if .playbackId }}watch demo{{ else }}preview{{ end }}</span>
-              </button>
-            </div>
-          </div>
-        {{ end }}
-      </div>
+      {{ end }}
     </div>
   </div>
 </div>
 
-<!-- Modal Dialog -->
+<!-- Modal Dialog for Video Walkthroughs -->
 {{ partial "project-dialog.html" . }}
-
-<script>
-  (function () {
-    var wrap = document.getElementById('project-dropdown-wrap');
-    var btn = document.getElementById('project-breadcrumb-btn');
-    var menu = document.getElementById('project-breadcrumb-menu');
-    var label = document.getElementById('project-breadcrumb-label');
-    var options = document.querySelectorAll('#project-breadcrumb-menu .breadcrumb-option');
-
-    if (!btn || !menu) return;
-
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var open = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', !open);
-      menu.classList.toggle('is-open', !open);
-    });
-
-    document.addEventListener('click', function (e) {
-      if (!wrap.contains(e.target)) {
-        btn.setAttribute('aria-expanded', 'false');
-        menu.classList.remove('is-open');
-      }
-    });
-
-    options.forEach(function (opt) {
-      opt.addEventListener('click', function (e) {
-        e.preventDefault();
-        var id = opt.getAttribute('data-id');
-        var target = document.getElementById(id);
-        if (target) {
-          btn.setAttribute('aria-expanded', 'false');
-          menu.classList.remove('is-open');
-          label.textContent = opt.getAttribute('data-title');
-
-          var headerH = document.querySelector('.site-header') ? document.querySelector('.site-header').offsetHeight : 0;
-          var breadcrumbH = document.getElementById('projects-breadcrumb') ? document.getElementById('projects-breadcrumb').offsetHeight : 0;
-          var totalOffset = headerH + breadcrumbH + 20;
-
-          var targetPos = target.getBoundingClientRect().top + window.pageYOffset - totalOffset;
-          window.scrollTo({ top: targetPos, behavior: 'smooth' });
-
-          if (history.replaceState) {
-            history.replaceState(null, null, '#' + id);
-          }
-        }
-      });
-    });
-  })();
-</script>
 {{ end }}
