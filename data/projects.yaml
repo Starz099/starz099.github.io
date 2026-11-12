@@ -8,7 +8,7 @@
     A keyboard-driven desktop audio overlay for Windows. Tweak per-application volume
     sliders instantly without Alt-Tabbing mid-game, plus zero-latency global push-to-talk for Discord.
   github: "https://github.com/Starz099/oto"
-  demo: "https://oto.starzz.dev/"
+  demo: "https://oto-starz099s-projects.vercel.app/"
   blog: ""
   image: "/images/projects/oto.png"
   playbackId: "YCO2xZqsqBxhWL3XBl6kSf016GeKdzxM01AAtRnX1kK2Y"
@@ -22,7 +22,7 @@
     A local-first video editor built without legacy bloat. Includes an embedded AI agent
     that transcribes footage, runs visual frame search, and edits the timeline directly from chat.
   github: "https://github.com/Starz099/rush"
-  demo: "https://rush.starzz.dev/"
+  demo: "https://rush-starz099s-projects.vercel.app/"
   blog: ""
   image: "/images/projects/rush.png"
   playbackId: ""
@@ -50,7 +50,7 @@
     Terminal assistant that inspects your staged git diffs and drafts concise, conventional commit
     messages and branch names. Eliminates the agony of thinking up commit titles.
   github: "https://github.com/Starz099/kyntra"
-  demo: "https://kyntra.starzz.dev"
+  demo: "https://kyntra-starz099s-projects.vercel.app/"
   blog: ""
   image: "/images/projects/kyntra.png"
   playbackId: "2W94wPYGSOLUv4yyxtR01gsbbdHWK6KUyE2ZArF89iCg"
@@ -79,7 +79,7 @@
     Typing speed tests for real code syntax instead of random prose. Practice typing
     brackets, operators, and language keywords in a Monaco-powered editor to build actual muscle memory.
   github: "https://github.com/Starz099/Kestro"
-  demo: "https://kestro.starzz.dev/"
+  demo: "https://kestro.vercel.app/"
   blog: ""
   image: "/images/projects/kestro.png"
   playbackId: "i2nM3Y3NWY5Vie019QBXALFF4zLAAEG300rXNr01PFwKy4"
@@ -124,7 +124,7 @@
     Instant client-side dark mode for blinding white PDF textbooks and research papers.
     Runs color inversion and luminance remapping directly on an HTML5 canvas without uploading your files anywhere.
   github: "https://github.com/Starz099/dark-pdf"
-  demo: "https://dark-pdf.starzz.dev/"
+  demo: "https://dark-pdf.vercel.app/"
   blog: ""
   image: "/images/projects/dark-pdf.png"
   playbackId: "24Fb002dZtSgwHK45pROvosml67XtfcgR1J9lFAKD02pg"
@@ -138,7 +138,7 @@
     Pulls your public Valorant competitive stats and feeds your headshot percentage, ADR, and clutch
     rate into an LLM to generate an unsparingly brutal roast of your gameplay.
   github: "https://github.com/Starz099/whiff.gg"
-  demo: "https://whiff.gg"
+  demo: ""
   blog: ""
   image: "/images/projects/whiff-gg.png"
   playbackId: "1MjB4i8Uuq8e1BOTzkl1SxdA67uj1LUf8EzftH287l4"
