@@ -1,15 +1,11 @@
-# Bio lines shown on the home page. `icon` maps to layouts/partials/icon.html,
-# `text` may contain inline HTML.
+# Bio lines shown on the home page.
+# Supports inline icons via [icon:NAME] and inline HTML links.
 lines:
-  - icon: pen
-    text: 'I <a class="link-crayon" href="/blog/">write a blog</a> — essays on compilers, networking, and architecture.'
-  - icon: code
-    text: 'I compete in programming contests on <a class="link-crayon" href="https://codeforces.com/profile/Starz099" target="_blank" rel="noopener noreferrer">Codeforces</a>.'
-  - icon: github
-    text: 'Spare-time and serious projects live <a class="link-crayon" href="/projects/">here</a> and <a class="link-crayon" href="https://github.com/Starz099" target="_blank" rel="noopener noreferrer">on GitHub</a>.'
-  - icon: x
-    text: 'Over on <a class="link-crayon" href="https://x.com/mayank0166" target="_blank" rel="noopener noreferrer">X</a> as @mayank0166.'
-  - icon: file
-    text: 'Here''s my <a class="link-crayon" href="/resume/">CV</a>.'
-  - icon: mail
-    text: 'Get in touch at <a class="link-crayon" href="mailto:work.mayankbh064@gmail.com">work.mayankbh064@gmail.com</a>.'
+  - text: 'Mostly contributing to <a class="link-inline" href="https://projects.blender.org/starz099/" target="_blank" rel="noopener noreferrer">[icon:blender] Blender</a> these days, working on audio features in the Video Sequencer module, like adding an end-to-end Compressor modifier and improving the Equalizer UI.'
+  - text: 'Here are some <a class="link-inline" href="/projects/">projects</a> I built over the past couple of years across web, AI, scrapers, and devtools. Source code on <a class="link-inline" href="https://github.com/Starz099" target="_blank" rel="noopener noreferrer">[icon:github] GitHub</a>.'
+  - text: 'Sharing my learnings and thoughts on my <a class="link-inline" href="/blog/">[icon:book-open] blog</a>.'
+  - text: 'I sometimes do competitive programming on <a class="link-inline" href="https://codeforces.com/profile/Starz099" target="_blank" rel="noopener noreferrer">[icon:codeforces] Codeforces</a>.'
+  - text: 'Over on [icon:x] as <a class="link-inline" href="https://x.com/mayank0166" target="_blank" rel="noopener noreferrer">@mayank0166</a>.'
+  - text: 'We can connect on <a class="link-inline" href="https://www.linkedin.com/in/mayank016/" target="_blank" rel="noopener noreferrer">[icon:linkedin] LinkedIn</a>.'
+  - text: 'Here''s my <a class="link-inline" href="/resume/">[icon:file-text] Resume</a>.'
+  - text: 'Hiring? Get in touch at <a class="link-inline" href="mailto:work.mayankbh064@gmail.com">[icon:mail] work.mayankbh064@gmail.com</a>.'

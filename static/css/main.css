@@ -411,6 +411,112 @@ svg {
   margin-bottom: 2.5rem;
 }
 
+.bio-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  max-width: 720px;
+}
+
+.bio-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.bio-avatar {
+  width: 60px;
+  height: 60px;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+  display: block;
+}
+
+.bio-lead {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--fg);
+}
+
+.bio-name {
+  color: var(--fg-strong);
+  font-weight: 700;
+}
+
+.bio-handle {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.bio-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.bio-line {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--fg);
+  margin: 0;
+}
+
+.bio-line a,
+.link-inline {
+  display: inline;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--blue-dark1);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.bio-line a:hover,
+.link-inline:hover {
+  color: var(--blue-dark2);
+  text-decoration-color: var(--blue-dark2);
+}
+
+.link-icon-only {
+  text-decoration: none !important;
+  padding: 0 0.05em;
+  vertical-align: middle;
+}
+
+.link-icon-only:hover {
+  text-decoration: none !important;
+  opacity: 0.75;
+}
+
+.inline-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  margin-right: 0.28em;
+  line-height: 1;
+  color: #000000 !important;
+  flex-shrink: 0;
+}
+
+.link-icon-only .inline-ico {
+  margin-right: 0;
+}
+
+.inline-ico svg {
+  width: 17.5px;
+  height: 17.5px;
+  max-width: 17.5px;
+  max-height: 17.5px;
+  display: block;
+  color: #000000 !important;
+}
+
+/* Legacy table support */
 .bio-table {
   border-collapse: collapse;
   width: 100%;
@@ -435,15 +541,6 @@ svg {
   text-align: center;
 }
 
-.bio-avatar {
-  width: 60px;
-  height: 60px;
-  aspect-ratio: 1 / 1;
-  border-radius: 4px;
-  object-fit: cover;
-  display: block;
-}
-
 .homelogo-ico {
   display: inline-flex;
   align-items: center;
@@ -456,22 +553,6 @@ svg {
 .homelogo-ico svg {
   width: 20px;
   height: 20px;
-}
-
-.bio-lead {
-  font-size: 1.05rem;
-  line-height: 1.5;
-  color: var(--fg);
-}
-
-.bio-name {
-  color: var(--accent-warm);
-  font-weight: 700;
-}
-
-.bio-handle {
-  color: var(--muted);
-  font-weight: 400;
 }
 
 .bio-cell {
@@ -1418,6 +1499,10 @@ dialog.project-modal::backdrop {
    ========================================================================== */
 
 @media (max-width: 640px) {
+  .bio-header {
+    align-items: flex-start;
+  }
+
   .site-main {
     padding-top: 1.5rem;
   }

@@ -2,28 +2,33 @@
 <div class="home-layout">
   <!-- Hero / Bio Section -->
   <section class="home-hero">
-    <table class="bio-table">
-      <tbody>
-        <tr class="bio-row-lead">
-          <td class="logocol">
-            <img src="{{ "images/profile.png" | relURL }}" alt="Mayank" class="bio-avatar" width="60" height="60" />
-          </td>
-          <td class="bio-cell">
-            <div class="bio-lead">
-              Hi! I am <b class="bio-name">Mayank</b> <span class="bio-handle">({{ site.Params.handle }})</span>. {{ site.Params.bio }}
-            </div>
-          </td>
-        </tr>
+    <div class="bio-card">
+      <div class="bio-header">
+        <img src="{{ "images/profile.png" | relURL }}" alt="Mayank" class="bio-avatar" width="60" height="60" />
+        <div class="bio-lead">
+          <div>Hi, I am Mayank, a Software Engineer from India.</div>
+          <div>Currently in my 3rd year of CS undergrad. [Open to Work]</div>
+        </div>
+      </div>
+
+      <div class="bio-lines">
         {{ range site.Data.home.lines }}
-          <tr>
-            <td class="logocol">
-              <span class="homelogo-ico">{{ partial "icon.html" .icon }}</span>
-            </td>
-            <td class="bio-cell">{{ .text | safeHTML }}</td>
-          </tr>
+          {{ $raw := cond (reflect.IsMap .) .text . }}
+          {{ $text := $raw }}
+          {{ range $icon := slice "blender" "github" "pen" "square-pen" "book-open" "feather" "code" "terminal" "folder" "package" "rocket" "codeforces" "x" "file" "file-text" "file-user" "briefcase" "mail" "linkedin" "chess" "sparkles" "gamepad" }}
+            {{ $placeholderWithSpace := printf "[icon:%s] " $icon }}
+            {{ $placeholder := printf "[icon:%s]" $icon }}
+            {{ $svg := printf `<span class="inline-ico" aria-hidden="true">%s</span>` (partial "icon.html" $icon) }}
+            {{ if in $text $placeholderWithSpace }}
+              {{ $text = replace $text $placeholderWithSpace $svg }}
+            {{ else if in $text $placeholder }}
+              {{ $text = replace $text $placeholder $svg }}
+            {{ end }}
+          {{ end }}
+          <div class="bio-line">{{ $text | safeHTML }}</div>
         {{ end }}
-      </tbody>
-    </table>
+      </div>
+    </div>
   </section>
 </div>
 {{ end }}
