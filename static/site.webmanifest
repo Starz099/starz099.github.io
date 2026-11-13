@@ -1,0 +1,21 @@
+{
+  "name": "Mayank — Software Engineer",
+  "short_name": "Mayank",
+  "description": "Software engineer building desktop utilities, developer tools, and reliable web applications.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fbfaf8",
+  "theme_color": "#fbfaf8",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "1232x1232",
+      "type": "image/x-icon"
+    }
+  ]
+}

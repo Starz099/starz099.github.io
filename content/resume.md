@@ -15,7 +15,7 @@ description: "Summary of engineering experience, education, and technical backgr
     </div>
     <div class="fact">
       <dt>Focus</dt>
-      <dd>Rust · TypeScript · local-first systems</dd>
+      <dd>Systems · TypeScript · local-first software</dd>
     </div>
     <div class="fact">
       <dt>Availability</dt>

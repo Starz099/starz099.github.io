@@ -1,26 +1,88 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-{{ $desc := site.Params.description }}
-{{ with .Description }}{{ $desc = . }}{{ end }}
-{{ $ogTitle := .Title }}
-{{ if or .IsHome (not $ogTitle) }}{{ $ogTitle = site.Title }}{{ end }}
+{{- /* Resolve dynamic page title */ -}}
+{{- $siteTitle := site.Title -}}
+{{- $pageTitle := $siteTitle -}}
+{{- $ogTitle := .Title -}}
+{{- if .IsHome -}}
+  {{- with site.Params.role -}}
+    {{- $pageTitle = printf "%s — %s" $siteTitle . -}}
+    {{- $ogTitle = printf "%s — %s" $siteTitle . -}}
+  {{- end -}}
+{{- else if .Title -}}
+  {{- $pageTitle = printf "%s — %s" .Title $siteTitle -}}
+  {{- $ogTitle = .Title -}}
+{{- else -}}
+  {{- $ogTitle = $siteTitle -}}
+{{- end -}}
 
-<title>Mayank</title>
+{{- /* Resolve description */ -}}
+{{- $desc := site.Params.description -}}
+{{- if .Description -}}
+  {{- $desc = .Description -}}
+{{- else if .Summary -}}
+  {{- $desc = .Summary | plainify | htmlUnescape | chomp -}}
+{{- end -}}
+
+{{- /* Resolve social thumbnail image */ -}}
+{{- $ogImage := "og.png" | absURL -}}
+{{- with .Params.image -}}
+  {{- $ogImage = . | absURL -}}
+{{- else -}}
+  {{- with .Params.images -}}
+    {{- $ogImage = (index . 0) | absURL -}}
+  {{- end -}}
+{{- end -}}
+
+<title>{{ $pageTitle }}</title>
 <meta name="description" content="{{ $desc }}" />
 <meta name="author" content="{{ site.Params.author }}" />
+<link rel="canonical" href="{{ .Permalink }}" />
+<meta name="robots" content="index, follow" />
 
-<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+<!-- Theme & Mobile Colors -->
+<meta name="theme-color" content="#fbfaf8" />
+<meta name="color-scheme" content="light" />
+
+<!-- Open Graph / Facebook / LinkedIn / Discord / Slack -->
+<meta property="og:site_name" content="{{ site.Title }}" />
 <meta property="og:title" content="{{ $ogTitle }}" />
 <meta property="og:description" content="{{ $desc }}" />
 <meta property="og:url" content="{{ .Permalink }}" />
-<meta property="og:site_name" content="{{ site.Title }}" />
-<meta property="og:image" content="{{ "og.png" | absURL }}" />
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:image" content="{{ $ogImage }}" />
+<meta property="og:image:secure_url" content="{{ $ogImage }}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="{{ $ogTitle }}" />
+<meta property="og:image:type" content="image/png" />
+
+{{- if .IsPage }}
+  <meta property="article:author" content="{{ site.Params.author }}" />
+  {{- with .PublishDate }}<meta property="article:published_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}" />{{ end }}
+  {{- with .Lastmod }}<meta property="article:modified_time" content="{{ .Format "2006-01-02T15:04:05Z07:00" }}" />{{ end }}
+  {{- range .Params.tags }}
+    <meta property="article:tag" content="{{ . }}" />
+  {{- end }}
+{{- end }}
+
+<!-- Twitter / X Cards -->
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@mayank0166" />
+<meta name="twitter:creator" content="@mayank0166" />
 <meta name="twitter:title" content="{{ $ogTitle }}" />
 <meta name="twitter:description" content="{{ $desc }}" />
-<meta name="twitter:image" content="{{ "og.png" | absURL }}" />
+<meta name="twitter:image" content="{{ $ogImage }}" />
+<meta name="twitter:image:alt" content="{{ $ogTitle }}" />
 
+<!-- Favicon, Apple Touch Icon & Web App Manifest -->
+<link rel="icon" type="image/x-icon" href="{{ "favicon.ico" | relURL }}" />
+<link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png" | relURL }}" />
+<link rel="manifest" href="{{ "site.webmanifest" | relURL }}" />
+
+<!-- Typography & Stylesheets -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link
@@ -28,7 +90,64 @@
   rel="stylesheet"
 />
 <link rel="stylesheet" href="{{ "css/main.css" | relURL }}?v={{ now.Unix }}" />
-<link rel="icon" href="{{ "favicon.ico" | relURL }}" />
+
 {{ with .OutputFormats.Get "rss" }}
   <link rel="alternate" type="application/rss+xml" href="{{ .Permalink }}" title="{{ site.Title }}" />
 {{ end }}
+
+<!-- Structured Data (JSON-LD) -->
+{{- if .IsHome }}
+{{- $homeSchema := dict
+  "@context" "https://schema.org"
+  "@graph" (slice
+    (dict
+      "@type" "WebSite"
+      "@id" (printf "%s#website" site.BaseURL)
+      "url" site.BaseURL
+      "name" site.Title
+      "description" site.Params.description
+      "publisher" (dict "@id" (printf "%s#person" site.BaseURL))
+    )
+    (dict
+      "@type" "Person"
+      "@id" (printf "%s#person" site.BaseURL)
+      "name" site.Params.author
+      "url" site.BaseURL
+      "jobTitle" site.Params.role
+      "description" site.Params.bio
+      "image" ("images/profile.png" | absURL)
+      "sameAs" (slice
+        site.Params.social.github
+        site.Params.social.x
+        site.Params.social.linkedin
+        site.Params.social.blender
+        site.Params.social.codeforces
+      )
+    )
+  )
+-}}
+<script type="application/ld+json">
+{{ $homeSchema | jsonify (dict "indent" "  ") | safeJS }}
+</script>
+{{- else if .IsPage }}
+{{- $pageSchema := dict
+  "@context" "https://schema.org"
+  "@type" "BlogPosting"
+  "headline" .Title
+  "description" $desc
+  "url" .Permalink
+  "image" $ogImage
+  "author" (dict "@type" "Person" "name" site.Params.author "url" site.BaseURL)
+  "publisher" (dict "@type" "Person" "name" site.Params.author "url" site.BaseURL)
+  "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+-}}
+{{- with .PublishDate }}
+  {{- $pageSchema = merge $pageSchema (dict "datePublished" (.Format "2006-01-02T15:04:05Z07:00")) -}}
+{{- end }}
+{{- with .Lastmod }}
+  {{- $pageSchema = merge $pageSchema (dict "dateModified" (.Format "2006-01-02T15:04:05Z07:00")) -}}
+{{- end }}
+<script type="application/ld+json">
+{{ $pageSchema | jsonify (dict "indent" "  ") | safeJS }}
+</script>
+{{- end }}

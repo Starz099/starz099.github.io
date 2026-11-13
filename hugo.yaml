@@ -16,7 +16,7 @@ params:
   bio: "19-year-old software engineer from Delhi, India."
   themecolor: "#16a0d4"
   resumeURL: ""
-  description: "Software engineer building desktop utilities, tools in Rust, and reliable web applications. Building fast, failing fast, learning faster."
+  description: "Software engineer building desktop utilities, developer tools, and reliable web applications. Building fast, failing fast, learning faster."
   social:
     github: "https://github.com/Starz099"
     blender: "https://projects.blender.org/starz099/"
